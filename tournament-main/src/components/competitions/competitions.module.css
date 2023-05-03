@@ -1,0 +1,24 @@
+.com {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.tur {
+    margin: 0 auto;
+    width: 1000px;
+    background-color: #2CDA7C;
+    padding: 1px;
+    border: none;
+}
+
+.btn {
+    width: 1000px;
+    padding: 30px;
+    background-color: snow;
+    border: 2px solid #2CDA7C;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39px;
+}
+
+

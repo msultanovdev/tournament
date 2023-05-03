@@ -1,0 +1,169 @@
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 600px;
+    margin-top: 70px;
+}
+p {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 38px;
+}
+
+.input {
+    border: 1px solid gray;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    color: #333;
+}
+
+.input::placeholder {
+    color: black;
+}
+
+.bt {
+    text-align: center;
+    width: 300px;
+    color: white;
+    background-color: #3B91FE;
+    border: none;
+    font-size: 20px;
+    padding: 15px 80px;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bt:disabled {
+    opacity: 0.5;
+}
+
+:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.sel {
+    border: 1px solid gray;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+}
+
+.sel::placeholder {
+    color: gray;
+}
+
+.check__box {
+    display: flex;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 30px;
+}
+
+.check {
+    margin-right: 10px;
+}
+
+.valid {
+    border-color: #3B91FE;
+}
+
+.pp {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+@media(max-width: 800px) {
+    .form {
+        width: 400px;
+    }
+
+    .prr {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .bt {
+        width: 200px;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .check__box {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+@media(max-width: 460px) {
+    .form {
+        width: 300px;
+    }
+
+    .bt {
+        width: 150px;
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    .check__box {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 18px;
+        margin-right: 50px;
+    }
+
+    .check {
+        padding: 0;
+        margin-left: 50px;
+        margin-right: 10px;
+    }
+}
+
+@media(max-width: 330px) {
+    .form {
+        width: 230px;
+    }
+
+    .bt {
+        width: 100px;
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    .check__box {
+        width: 100%;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 16px;
+        margin-right: 50px;
+    }
+
+
+    .check {
+        margin-left: 50px;
+    }
+}

@@ -1,0 +1,11 @@
+body {
+    background-color: snow;
+    margin: 0;
+}
+
+.start {
+    background-color: rgba(0,0,0,0.4);
+    width: 100%;
+    object-fit: cover;
+}
+
