@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import cl from "./entry.module.css"
+import cl from "./Login.module.css"
 import {Link} from "react-router-dom";
 
-const Entry = () => {
+const Login = () => {
   const [email, setEmail] = useState('')
   const [emailDirty, setEmailDirty] = useState(false)
   const [emailError, setEmailError] = useState('Поле не должно быть пустым')
@@ -63,4 +63,4 @@ const Entry = () => {
   );
 };
 
-export default Entry;
+export default Login;

@@ -58,7 +58,7 @@ function OffcanvasExample() {
                   <LinkContainer to="/form" onClick={handleLinkClick}>
                     <Nav.Link>Регистрация</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="/entry" onClick={handleLinkClick}>
+                  <LinkContainer to="/login" onClick={handleLinkClick}>
                     <Nav.Link>Вход</Nav.Link>
                   </LinkContainer>
 
