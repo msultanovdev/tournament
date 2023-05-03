@@ -3,15 +3,16 @@ import cl from "./Login.module.css"
 import {Link} from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [emailDirty, setEmailDirty] = useState(false)
-  const [emailError, setEmailError] = useState('Поле не должно быть пустым')
-  const [emailValid, setEmailValid] = useState(false)
-  const [validInput, setValidInput] = useState(false)
+  const [email, setEmail] = useState('');
+  const [emailDirty, setEmailDirty] = useState(false);
+  const [emailError, setEmailError] = useState('Поле не должно быть пустым');
+  const [emailValid, setEmailValid] = useState(false);
+  const [validInput, setValidInput] = useState(false);
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    emailError ? setValidInput(false) : setValidInput(true)
-  }, [emailError])
+    emailError ? setValidInput(false) : setValidInput(true);
+  }, [emailError]);
 
 
   const emailHandler = (e) => {
@@ -24,6 +25,10 @@ const Login = () => {
       setEmailError('')
       setEmailValid(true)
     }
+  }
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
   }
 
   function blurHandler(e) {
@@ -47,6 +52,13 @@ const Login = () => {
           name='email'
           placeholder="Email"
           className={`${cl.input} ${emailValid ? cl.valid : ''}`}
+        />
+        <input
+          onChange={e => passwordHandler(e)}
+          value={password}
+          name='password'
+          placeholder="Пароль"
+          className={`${cl.input}`}
         />
         <button
          className={cl.btn}
