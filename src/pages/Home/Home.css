@@ -5,3 +5,34 @@
     background-repeat: no-repeat;
     height: 100vh;
 }
+.home__links {
+    height: 30%;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+.home__links a {
+    width: 300px;
+    height: 60px;
+    font-size: 28px;
+    line-height: 64px;
+    background-color: #092F63;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+@media screen and (max-width: 460px) {
+    .home__links {
+        width: 30%;
+    }
+    .home__links a {
+        font-size: 24px;
+    }
+}
