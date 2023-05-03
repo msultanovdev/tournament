@@ -7,7 +7,6 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Outlet } from 'react-router-dom';
 import cl from './NavBar.module.css';
 import {useState} from "react";
-import {Button} from "react-bootstrap";
 
 function OffcanvasExample() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -27,8 +26,7 @@ function OffcanvasExample() {
           key={expand}
           bg="snow"
           expand={expand}
-          className="mb-3"
-          className={cl.nv}
+          className={`${cl.nv}`}
           variant="dark"
         >
           <Container fluid>

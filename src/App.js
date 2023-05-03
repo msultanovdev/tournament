@@ -6,8 +6,8 @@ import NotFound from "./components/NotFound";
 import Description from "./components/Description";
 import Competitions from "./components/competitions/Competitions";
 import Choice from "./components/choice/Choice";
-import Home from './components/pages/Home/Home';
-import Login from './components/pages/Login/Login';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
