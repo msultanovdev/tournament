@@ -1,7 +1,8 @@
 .nv {
     position: relative;
+    z-index: 100;
     width: 100%;
-    background-color: #3B91FE;
+    background-color: #082854;
     display: flex;
 }
 

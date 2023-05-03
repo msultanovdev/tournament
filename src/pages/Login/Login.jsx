@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import cl from "./Login.module.css"
 import {Link} from "react-router-dom";
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [emailDirty, setEmailDirty] = useState(false);
   const [emailError, setEmailError] = useState('Поле не должно быть пустым');
   const [emailValid, setEmailValid] = useState(false);
-  const [validInput, setValidInput] = useState(false);
+  const [validInput, setValidInput] = useState(true);
   const [password, setPassword] = useState('');
 
   useEffect(() => {
@@ -39,6 +40,16 @@ const Login = () => {
     }
   }
 
+  async function onLoginSubmit (e) {
+    e.preventDefault();
+    const formData = {
+      userName: email,
+      password: password
+    }
+    const {data} = await axios.post('https://08c4-178-178-88-29.ngrok-free.app/api/Auth/login', formData);
+    localStorage.setItem('token', data.accessToken);
+  }
+
   return (
     <div className={cl.entry}>
       <p className={cl.header}>Войдите в свою учетную запись,
@@ -64,6 +75,7 @@ const Login = () => {
          className={cl.btn}
          disabled={!validInput}
          type='submit'
+         onClick={(e) => onLoginSubmit(e)}
         >
           Продолжить
         </button>

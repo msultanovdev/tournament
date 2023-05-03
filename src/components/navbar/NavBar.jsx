@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import cl from './NavBar.module.css';
 import {useState} from "react";
 
@@ -30,7 +30,7 @@ function OffcanvasExample() {
           variant="dark"
         >
           <Container fluid>
-            <Navbar.Brand href="#">Турнир</Navbar.Brand>
+            <Navbar.Brand><Link to="/" style={{color: "white"}}>Турнир</Link></Navbar.Brand>
             <Navbar.Toggle
                 style={{color: "white"}}
               aria-controls={`offcanvasNavbar-expand-${expand}`}
