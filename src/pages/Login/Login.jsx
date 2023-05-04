@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import cl from "./Login.module.css"
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import { Context } from '../..';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +11,8 @@ const Login = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [password, setPassword] = useState('');
+
+  const {store} = useContext(Context);
 
   useEffect(() => {
     emailError ? setValidInput(false) : setValidInput(true);
@@ -75,7 +78,7 @@ const Login = () => {
          className={cl.btn}
          disabled={!validInput}
          type='submit'
-         onClick={(e) => onLoginSubmit(e)}
+         onClick={() => store.login(userName, password)}
         >
           Продолжить
         </button>

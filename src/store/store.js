@@ -28,9 +28,9 @@ export default class Store {
         }
     }
 
-    async registration(firstName, middleName, lastName, phoneNumber, gender, birthDate, email, password, schoolNumber, rating) {
+    async registration(firstName, middleName, lastName, phoneNumber, gender, age, email, password, sportsCategory) {
         try {
-            const res = await AuthService.registration(firstName, middleName, lastName, phoneNumber, gender, birthDate, email, password, schoolNumber, rating);
+            const res = await AuthService.registration(firstName, middleName, lastName, phoneNumber, gender, age, email, password, sportsCategory);
             localStorage.setItem('token', res.data.accessToken);
             this.setAuth(true);
             this.setUser(res.data.user);
