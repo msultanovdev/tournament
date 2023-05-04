@@ -1,29 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from "./components/navbar/NavBar";
-import Forms from "./components/form/Forms";
 import {Routes, Route} from "react-router-dom";
-import NotFound from "./components/NotFound";
-import Description from "./components/Description";
-import Competitions from "./components/competitions/Competitions";
-import Choice from "./components/choice/Choice";
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
 import Footer from './components/Footer/Footer';
+import { authRoutes, guestRoutes } from './routes';
+import { useContext } from 'react';
+import { Context } from '.';
+import NotFound from './pages/NotFound/NotFound';
 
-function App() {
+function App() {  
+  const {store} = useContext(Context);
+
   return (
     <>
+      <NavBar />
       <Routes>
-        <Route path="/" element={[<NavBar/>,<Footer />]}>
-          <Route index element={<Home/>}/>
-          <Route path="description" element={<Description/>}/>
-          <Route path="competitions" element={<Competitions/>}/>
-          <Route path="form" element={<Forms/>}/>
-          <Route path="choice" element={<Choice/>}/>
-          <Route path="login" element={<Login/>}/>
-          <Route path="*" element={<NotFound/>}/>
-        </Route>
+          {store.isAuth ? authRoutes.map((route) => {
+            return <Route key={route.path} exact path={route.path} element={<route.element />} />
+          }) : guestRoutes.map((route) => {
+            return <Route key={route.path} exact path={route.path} element={<route.element />} />
+          })}
+          <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }

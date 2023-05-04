@@ -8,12 +8,12 @@ import Store from './store/store';
 const store = new Store();
 
 export const Context = createContext({
-  store,
+  store
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Context.Provider value={store}>
+  <Context.Provider value={{store}}>
    <BrowserRouter>
      <App/>
    </BrowserRouter>

@@ -1,7 +1,7 @@
 import $api from "../http";
 
 export default class UserService {
-    static fetchUsers() {
+    fetchUsers() {
         return $api.get('/account');
     }
 }

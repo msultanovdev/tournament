@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import cl from "./Login.module.css"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
 import { Context } from '../..';
 
@@ -12,12 +12,13 @@ const Login = () => {
   const [validInput, setValidInput] = useState(true);
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const {store} = useContext(Context);
 
   useEffect(() => {
-    emailError ? setValidInput(false) : setValidInput(true);
+    // emailError ? setValidInput(false) : setValidInput(true);
   }, [emailError]);
-
 
   const emailHandler = (e) => {
     setEmail(e.target.value)
@@ -43,14 +44,20 @@ const Login = () => {
     }
   }
 
-  async function onLoginSubmit (e) {
-    e.preventDefault();
+  async function onLoginSubmit () {
     const formData = {
-      userName: email,
+      email: email,
       password: password
     }
-    const {data} = await axios.post('https://08c4-178-178-88-29.ngrok-free.app/api/Auth/login', formData);
-    localStorage.setItem('token', data.accessToken);
+    try {
+      const {data} = await axios.post(`${process.env.BASE_API_URL}/api/Auth/login`, formData);
+      console.log(data);
+      store.isAuth = true;
+      localStorage.setItem('token', data.accessToken);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -78,7 +85,7 @@ const Login = () => {
          className={cl.btn}
          disabled={!validInput}
          type='submit'
-         onClick={() => store.login(userName, password)}
+         onClick={onLoginSubmit}
         >
           Продолжить
         </button>
