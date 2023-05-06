@@ -6,8 +6,9 @@ import { authRoutes, guestRoutes } from './routes';
 import { useContext } from 'react';
 import { Context } from '.';
 import NotFound from './pages/NotFound/NotFound';
+import {observer} from "mobx-react-lite";
 
-function App() {  
+function App () {  
   const {store} = useContext(Context);
 
   return (
@@ -26,4 +27,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
