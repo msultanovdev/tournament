@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import cl from './NavBar.module.css';
 import {useContext, useState} from "react";
 import { Context } from '../..';
@@ -12,9 +12,18 @@ import { Context } from '../..';
 function OffcanvasExample() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const {store} = useContext(Context);
+  const navigate = useNavigate();
 
   const handleLinkClick = () => {
     setShowOffcanvas(false);
+  };
+
+  const handleLeaveClick = () => {
+    setShowOffcanvas(false);
+    store.isAuth = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   const handleOffcanvasClose = () => {
@@ -63,6 +72,9 @@ function OffcanvasExample() {
                   </LinkContainer>}
                   {store.isAuth && <LinkContainer to="/account" onClick={handleLinkClick}>
                     <Nav.Link>Личный Кабинет</Nav.Link>
+                  </LinkContainer>}
+                  {store.isAuth && <LinkContainer to="/" onClick={handleLeaveClick}>
+                    <Nav.Link>Выйти</Nav.Link>
                   </LinkContainer>}
                   
 
