@@ -9,10 +9,12 @@ const Account = () => {
     const [mail, setMail] = useState('');
     const [playerLevel, setPlayerLevel] = useState('');
     const [age, setAge] = useState('');
+    const user = JSON.parse(localStorage.getItem('user'));
+
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const user = jwt_decode(token);
-        setMail(user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
+        // const token = localStorage.getItem('token');
+        // const user = jwt_decode(token);
+        // setMail(user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
     }, []);
 
     return(
@@ -20,12 +22,12 @@ const Account = () => {
             <div className="account__container">
                 <h2 className="account-title">Личный Кабинет</h2>
                 <div className="account-info">
-                    <h3>Мои данные:</h3>
-                    <p>ФИО: {userName}</p>
-                    <p>Номер телефона: {phone}</p>
-                    <p>email: {mail}</p>
-                    <p>Возраст: {age}</p>
-                    <p>Уровень готовности: {playerLevel}</p>
+                    <h3>Мои данные</h3>
+                    <p>ФИО: {`${user.firstName} ${user.middleName} ${user.lastName}`}</p>
+                    <p>Номер телефона: +999999</p>
+                    <p>email: admin@example.com</p>
+                    <p>Возраст: {user.age}</p>
+                    <p>Уровень готовности: {user.sportsCategory}</p>
                     <Button>Изменить</Button>
                 </div>
             </div>

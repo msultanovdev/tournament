@@ -56,6 +56,7 @@ const Login = () => {
       store.isAuth = true;
       store.setUser(data.user);
       console.log('Store user: ', data.user);
+      localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('token', data.accessToken);
       navigate('/');
     } catch (e) {

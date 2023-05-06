@@ -6,10 +6,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link, Outlet } from 'react-router-dom';
 import cl from './NavBar.module.css';
-import {useState} from "react";
+import {useContext, useState} from "react";
+import { Context } from '../..';
 
 function OffcanvasExample() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const {store} = useContext(Context);
 
   const handleLinkClick = () => {
     setShowOffcanvas(false);
@@ -53,12 +55,16 @@ function OffcanvasExample() {
                   <LinkContainer to="/" onClick={handleLinkClick}>
                     <Nav.Link>Главная</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="/form" onClick={handleLinkClick}>
+                  {!store.isAuth && <LinkContainer to="/form" onClick={handleLinkClick}>
                     <Nav.Link>Регистрация</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/login" onClick={handleLinkClick}>
+                  </LinkContainer>}
+                  {!store.isAuth && <LinkContainer to="/login" onClick={handleLinkClick}>
                     <Nav.Link>Вход</Nav.Link>
-                  </LinkContainer>
+                  </LinkContainer>}
+                  {store.isAuth && <LinkContainer to="/account" onClick={handleLinkClick}>
+                    <Nav.Link>Личный Кабинет</Nav.Link>
+                  </LinkContainer>}
+                  
 
                   <NavDropdown
                     title="Виды спорта"

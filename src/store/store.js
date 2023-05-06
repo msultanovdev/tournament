@@ -1,8 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
+const token = localStorage.getItem('token');
+
 export default class Store {
     user = {};
-    isAuth = false;
+    isAuth = token ? true : false;
 
     constructor() {
         makeAutoObservable(this);
