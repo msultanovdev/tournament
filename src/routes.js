@@ -4,6 +4,7 @@ import Login from "./pages/Login/Login";
 import Forms from "./components/form/Forms";
 import Choice from "./components/choice/Choice";
 import Description from "./components/Description";
+import Account from "./pages/Account/Account";
 
 export const guestRoutes = [
     {
@@ -36,6 +37,10 @@ export const authRoutes = [
     {
         path: 'choice',
         element: Choice
+    },
+    {
+        path: 'account',
+        element: Account
     }
 ];
 
@@ -55,5 +60,9 @@ export const refereeRoutes = [
     {
         path: 'description',
         element: Description
+    },
+    {
+        path: 'account',
+        element: Account
     }
 ];

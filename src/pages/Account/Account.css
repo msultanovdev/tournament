@@ -1,0 +1,47 @@
+.account {
+    background-color: rgba(204, 204, 204, 0.798);
+    min-height: 90vh;
+}
+
+.account-title {
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.account__container {
+    width: 33%;
+    margin: 0 auto;
+}
+
+.account-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 5px;
+    background-color: white;
+    border-radius: 16px;
+}
+.account-info h3 {
+    font-weight: 700;
+}
+.account-info p {
+    font-size: 16px;
+    margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+    .account__container {
+        width: 50%;
+    }
+}
+@media screen and (max-width: 90px) {
+    .account__container {
+        width: 60%;
+    }
+}
+@media screen and (max-width: 600px) {
+    .account__container {
+        width: 98%;
+    }
+}

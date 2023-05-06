@@ -11,13 +11,14 @@ const Login = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [validInput, setValidInput] = useState(true);
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
 
   const {store} = useContext(Context);
 
   useEffect(() => {
-    // emailError ? setValidInput(false) : setValidInput(true);
+    emailError ? setValidInput(false) : setValidInput(true);
   }, [emailError]);
 
   const emailHandler = (e) => {
@@ -50,13 +51,16 @@ const Login = () => {
       password: password
     }
     try {
-      const {data} = await axios.post(`${process.env.BASE_API_URL}/api/Auth/login`, formData);
+      const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/Auth/login`, formData);
       console.log(data);
       store.isAuth = true;
+      store.setUser(data.user);
+      console.log('Store user: ', data.user);
       localStorage.setItem('token', data.accessToken);
       navigate('/');
     } catch (e) {
-      console.log(e);
+      setLoginError('Неверный логин или пароль!');
+      setPassword('');
     }
   }
 
@@ -64,6 +68,7 @@ const Login = () => {
     <div className={cl.entry}>
       <p className={cl.header}>Войдите в свою учетную запись,
         чтобы продолжить</p>
+      <p style={{color: "red", textAlign: "center", fontSize: "18px"}}>{loginError}</p>
       <div className={cl.ob}>
         {(emailDirty && emailError) && <div style={{color: "red", marginBottom: 10, textAlign: 'center'}}>{emailError}</div>}
         <input
