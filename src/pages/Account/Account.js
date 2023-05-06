@@ -24,8 +24,7 @@ const Account = () => {
                 <div className="account-info">
                     <h3>Мои данные</h3>
                     <p>ФИО: {`${user.firstName} ${user.middleName} ${user.lastName}`}</p>
-                    <p>Номер телефона: +999999</p>
-                    <p>email: admin@example.com</p>
+                    <p>Номер телефона: {user.phoneNumber}</p>
                     <p>Возраст: {user.age}</p>
                     <p>Уровень готовности: {user.sportsCategory}</p>
                     <Button>Изменить</Button>
