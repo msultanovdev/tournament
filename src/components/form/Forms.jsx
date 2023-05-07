@@ -62,7 +62,7 @@ const Forms = () => {
 
   const passwordHideHandler = () => {
     setIsPasswordVisible(!isPasswordVisible);
-    if(isPasswordVisible) {
+    if(!isPasswordVisible) {
       passwordRef.current.type = 'text';
     } else {
       passwordRef.current.type = 'password';
@@ -227,7 +227,7 @@ const Forms = () => {
           className={`${cl.input}`}
         />
         <button className={cl.passwordBtn} onClick={passwordHideHandler}>
-          {isPasswordVisible ? <EyeSlashFill width='100%' height="100%" /> : <EyeFill width='100%' height="100%" />}
+          {!isPasswordVisible ? <EyeSlashFill width='100%' height="100%" /> : <EyeFill width='100%' height="100%" />}
         </button>
       </div>
       {(numberPhoneDirty && numberPhoneError) && <div style={{color: "red", marginBottom: 10}}>{numberPhoneError}</div>}
