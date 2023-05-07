@@ -1,8 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import cl from "./Login.module.css"
 import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
 import { Context } from '../..';
+import { EyeSlashFill, EyeFill } from 'react-bootstrap-icons';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,9 @@ const Login = () => {
   const [validInput, setValidInput] = useState(true);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const passwordRef = useRef();
 
   const navigate = useNavigate();
 
@@ -64,6 +68,15 @@ const Login = () => {
     }
   }
 
+  const passwordHideHandler = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+    if(isPasswordVisible) {
+      passwordRef.current.type = 'text';
+    } else {
+      passwordRef.current.type = 'password';
+    }
+  }
+
   return (
     <div className={cl.entry}>
       <p className={cl.header}>Войдите в свою учетную запись,
@@ -79,13 +92,20 @@ const Login = () => {
           placeholder="Email"
           className={`${cl.input} ${emailValid ? cl.valid : ''}`}
         />
-        <input
-          onChange={e => passwordHandler(e)}
-          value={password}
-          name='password'
-          placeholder="Пароль"
-          className={`${cl.input}`}
-        />
+        <div className={cl.passwordWrapper}>
+          <input
+            onChange={e => passwordHandler(e)}
+            value={password}
+            type='password'
+            ref={passwordRef}
+            name='password'
+            placeholder="Пароль"
+            className={`${cl.input}`}
+          />
+          <button className={cl.passwordBtn} onClick={passwordHideHandler}>
+            {isPasswordVisible ? <EyeSlashFill width='100%' height="100%" /> : <EyeFill width='100%' height="100%" />}
+          </button>
+        </div>
         <button
          className={cl.btn}
          disabled={!validInput}
