@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import cl from "./forms.module.css"
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Modal from "../../modal/Modal";
+import InputMask from 'react-input-mask';
 
 const Forms = () => {
   const [name, setName] = useState('')
@@ -11,7 +12,7 @@ const Forms = () => {
   const [emailDirty, setEmailDirty] = useState(false)
   const [nameError, setNameError] = useState('Поле не может быть пустым')
   const [emailError, setEmailError] = useState('Поле не может быть пустым')
-  const [numberPhone, setNumberPhone] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [numberPhoneDirty, setNumberPhoneDirty] = useState(false)
   const [numberPhoneError, setNumberPhoneError] = useState('Поле не может быть пустым')
   const [age, setAge] = useState('')
@@ -24,31 +25,32 @@ const Forms = () => {
   const [genderDirty, setGenderDirty] = useState(false)
   const [genderError, setGenderError] = useState('Поле не может быть пустым')
   const [genderValid, setGenderValid] = useState(false)
-  const [whoAreYou, setWhoAreYou] = useState('')
-  const [whoAreYouDirty, setWhoAreYouDirty] = useState(false)
-  const [whoAreYouError, setWhoAreYouError] = useState('Поле не может быть пустым')
-  const [whoAreYouValid, setWhoAreYouValid] = useState(false)
   const [validForm, setValidForm] = useState(false)
   const [nameValid, setNameValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
+  const [password, setPassword] = useState('');
   const [numberPhoneValid, setNumberPhoneValid] = useState(false);
   const [ageValid, setAgeValid] = useState(false);
   const [levelValid, setLevelValid] = useState(false);
   const [modalActive, setModalActive] = useState(false);
+  const [enumGender, setEnumGender] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (emailError || nameError || numberPhoneError || ageError || levelError || genderError || whoAreYouError) {
+    if (emailError || nameError || numberPhoneError || ageError || levelError || genderError) {
       setValidForm(false)
     } else {
       setValidForm(true)
     }
-  }, [nameError, emailError, numberPhoneError, ageError, levelError, genderError, whoAreYouError])
+  }, [nameError, emailError, numberPhoneError, ageError, levelError, genderError])
 
   const nameHandler = (e) => {
-    setName(e.target.value)
-    if (e.target.value.length > 50) {
-      setNameError('Некорректное ФИО')
-      setNameValid(false)
+    setName(e.target.value);
+    const splitedName = e.target.value.split(' ');
+    if(splitedName.length < 3 || splitedName.length > 4) {
+      setNameError('ФИО должно выглядить: Иванов Александр Маркович');
+      setNameValid(false);
     } else {
       setNameError('')
       setNameValid(true)
@@ -68,9 +70,9 @@ const Forms = () => {
   }
 
   const numberPhoneHandler = (e) => {
-    setNumberPhone(e.target.value)
+    setPhoneNumber(e.target.value)
     const reN = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/i
-    if (!reN.test(String(e.target.value).toLowerCase()) && e.target.value.length > 13) {
+    if (!reN.test(String(e.target.value).toLowerCase()) && e.target.value.length > 17) {
       setNumberPhoneError('Некорректный номер телефона')
       setNumberPhoneValid(false)
     } else {
@@ -80,7 +82,12 @@ const Forms = () => {
   }
 
   const genderHandler = (e) => {
-    setGender(e.target.value)
+    setGender(e.target.value);
+    if(e.target.value === 'male') {
+      setEnumGender(0);
+    } else {
+      setEnumGender(1);
+    }
     if (e.target.value.length !== '') {
       setGenderError('')
       setGenderValid(true)
@@ -107,12 +114,8 @@ const Forms = () => {
     }
   }
 
-  const whoAreYouHandler = (e) => {
-    setWhoAreYou(e.target.value)
-    if (e.target.value.length !== '') {
-      setWhoAreYouError('')
-      setWhoAreYouValid(true)
-    }
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
   }
 
   const blurHandler = (e) => {
@@ -131,7 +134,7 @@ const Forms = () => {
         break
       case 'numberPhone':
         setNumberPhoneDirty(true)
-        if (numberPhone.length === 0) {
+        if (phoneNumber.length === 0) {
           setNumberPhoneValid(false)
         }
         break
@@ -150,32 +153,33 @@ const Forms = () => {
       case 'gender':
         setGenderDirty(true)
         break
-      case 'who':
-        setWhoAreYouDirty(true)
-        break
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const splitedName = name.split(' ');
     const formData = {
-      name,
+      firstName: splitedName[0],
+      middleName: splitedName[1],
+      lastName: splitedName[1],
       email,
-      numberPhone,
-      gender,
+      phoneNumber,
+      password,
+      gender: enumGender,
       age,
-      level,
-      whoAreYou
+      sportsCategory: level
     }
 
-    return axios.post('http://localhost:3000/posts/1', formData)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    console.log(formData);
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/auth/register`, formData);
+      navigate('/login');
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   return (
@@ -199,15 +203,23 @@ const Forms = () => {
         className={`${cl.input} ${emailValid ? cl.valid : ''}`}
         placeholder="Email"
       />
-      {(numberPhoneDirty && numberPhoneError) && <div style={{color: "red", marginBottom: 10}}>{numberPhoneError}</div>}
       <input
+        onChange={e => passwordHandler(e)}
+        value={password}
+        name='password'
+        placeholder="Пароль"
+        className={`${cl.input}`}
+      />
+      {(numberPhoneDirty && numberPhoneError) && <div style={{color: "red", marginBottom: 10}}>{numberPhoneError}</div>}
+      <InputMask
+        mask="7 (999) 999-99-99"
         onChange={e => numberPhoneHandler(e)}
         onBlur={e => blurHandler(e)}
-        value={numberPhone}
+        value={phoneNumber}
         name="numberPhone"
         className={`${cl.input} ${numberPhoneValid ? cl.valid : ''}`}
         type='tel'
-        placeholder="8**********"
+        placeholder="Номер телефона"
       />
       {(genderDirty && genderError) && <div style={{color: 'red', marginBottom: 10}}>{genderError}</div>}
       <select
@@ -220,8 +232,8 @@ const Forms = () => {
         <option value="" disabled hidden defaultValue>
           Пол
         </option>
-        <option value="option1">Мужчина</option>
-        <option value="option2">Женщина</option>
+        <option value="male">Мужчина</option>
+        <option value="female">Женщина</option>
       </select>
       {(ageDirty && ageError) && <div style={{color: 'red', marginBottom: 10}}>{ageError}</div>}
       <input
@@ -249,20 +261,6 @@ const Forms = () => {
         <option>Любитель</option>
         <option>Новичок</option>
       </select>
-      {(whoAreYouDirty && whoAreYouError) && <div style={{color: 'red', marginBottom: 10}}>{whoAreYouError}</div>}
-      <select
-        onChange={e => whoAreYouHandler(e)}
-        onBlur={e => blurHandler(e)}
-        value={whoAreYou}
-        name="who"
-        className={`${cl.sel} ${whoAreYouValid ? cl.valid : ''}`}
-      >
-        <option value="" disabled hidden defaultValue>
-          Роль
-        </option>
-        <option value="option1">Судья</option>
-        <option value="option2">Участник</option>x`
-        </select>
         <div className={cl.check__box}>
           <input
             className={cl.check}
