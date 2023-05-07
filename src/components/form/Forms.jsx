@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import cl from "./forms.module.css"
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import Modal from "../../modal/Modal";
 import InputMask from 'react-input-mask';
+import { EyeSlashFill, EyeFill } from 'react-bootstrap-icons';
 
 const Forms = () => {
   const [name, setName] = useState('')
@@ -34,8 +35,10 @@ const Forms = () => {
   const [levelValid, setLevelValid] = useState(false);
   const [modalActive, setModalActive] = useState(false);
   const [enumGender, setEnumGender] = useState(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
+  const passwordRef = useRef();
 
   useEffect(() => {
     if (emailError || nameError || numberPhoneError || ageError || levelError || genderError) {
@@ -54,6 +57,15 @@ const Forms = () => {
     } else {
       setNameError('')
       setNameValid(true)
+    }
+  }
+
+  const passwordHideHandler = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+    if(isPasswordVisible) {
+      passwordRef.current.type = 'text';
+    } else {
+      passwordRef.current.type = 'password';
     }
   }
 
@@ -204,13 +216,20 @@ const Forms = () => {
         className={`${cl.input} ${emailValid ? cl.valid : ''}`}
         placeholder="Email"
       />
-      <input
-        onChange={e => passwordHandler(e)}
-        value={password}
-        name='password'
-        placeholder="Пароль"
-        className={`${cl.input}`}
-      />
+      <div className={cl.passwordWrapper}>
+        <input
+          onChange={e => passwordHandler(e)}
+          value={password}
+          ref={passwordRef}
+          name='password'
+          type='password'
+          placeholder="Пароль"
+          className={`${cl.input}`}
+        />
+        <button className={cl.passwordBtn} onClick={passwordHideHandler}>
+          {isPasswordVisible ? <EyeSlashFill width='100%' height="100%" /> : <EyeFill width='100%' height="100%" />}
+        </button>
+      </div>
       {(numberPhoneDirty && numberPhoneError) && <div style={{color: "red", marginBottom: 10}}>{numberPhoneError}</div>}
       <InputMask
         mask="7 (999) 999-99-99"

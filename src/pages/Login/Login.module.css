@@ -2,7 +2,23 @@
     max-width: 600px;
     margin: 70px auto 0;
 }
-
+.passwordWrapper {
+    position: relative;
+}
+.passwordBtn {
+    all: unset;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: all .3s;
+}
+.passwordBtn:hover {
+    opacity: 1;
+}
 .header {
     margin-bottom: 30px;
     font-weight: 600;
