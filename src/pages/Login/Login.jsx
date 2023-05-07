@@ -52,15 +52,14 @@ const Login = () => {
     }
     try {
       const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/Auth/login`, formData);
-      console.log(data);
       store.isAuth = true;
       store.setUser(data.user);
-      console.log('Store user: ', data.user);
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('token', data.accessToken);
       navigate('/');
     } catch (e) {
-      setLoginError('Неверный логин или пароль!');
+      console.log(e.response.data.message);
+      setLoginError(e.response.data.message);
       setPassword('');
     }
   }

@@ -178,7 +178,8 @@ const Forms = () => {
       navigate('/login');
       console.log(response);
     } catch (error) {
-      console.log(error.message);
+      setEmailError(error.response.data.message);
+      console.log(error.response.data.message);
     }
   }
 
