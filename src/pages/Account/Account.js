@@ -125,7 +125,7 @@ const Account = () => {
                             value={level}
                             onChange={e => setLevel(e.target.value)}
                         >
-                            <option>{user.sportsCategory}</option>
+                            <option>Мастер Спорта</option>
                             <option>Разряд</option>
                             <option>Любитель</option>
                             <option>Новичок</option>
@@ -135,7 +135,7 @@ const Account = () => {
                         <Button onClick={changeButton}>Изменить</Button> : 
                         <div className="save-buttons">
                             <Button variant="success" onClick={saveChanges}>Сохранить</Button>
-                            <Button variant="danger" onClick={cancelSave}>Отменить</Button>
+                            <Button variant="danger" className="cancel-btn" onClick={cancelSave}>Отменить</Button>
                         </div>
                     }
                 </div>
