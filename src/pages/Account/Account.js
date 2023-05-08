@@ -47,7 +47,7 @@ const Account = () => {
                         <p>ФИО: </p>
                         <input 
                             ref={accountNameRef}
-                            className="account-name-input" 
+                            className="account-input" 
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             readOnly 
@@ -57,7 +57,7 @@ const Account = () => {
                         <p>Номер телефона: </p>
                         <input 
                             ref={accountPhoneRef}
-                            className="account-name-input" 
+                            className="account-input" 
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             readOnly 
