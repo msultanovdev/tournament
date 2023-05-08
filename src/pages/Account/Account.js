@@ -40,9 +40,9 @@ const Account = () => {
     }
 
     const saveChanges = async () => {
-        const names = name.split(' ');
-        
-        const formData = [
+        try {
+            const names = name.split(' ');
+            const formData = [
             {
               op: "replace",
               path: "firstName",
@@ -74,12 +74,19 @@ const Account = () => {
               value: level
             },
           ];
-
-        const {data} = await axios.patch(`${process.env.REACT_APP_BASE_API_URL}/api/account/${user.id}`, formData, {headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }});
-        console.log(data);
-        localStorage.setItem('user', JSON.stringify(data));
+            const {data} = await axios.patch(`${process.env.REACT_APP_BASE_API_URL}/api/account/${user.id}`, formData, {headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }});
+            console.log(data);
+            localStorage.setItem('user', JSON.stringify({...data, id: user.id}));
+        } catch (e) {
+            console.log(e.response.data.message);
+        } finally {
+            accountNameRef.current.setAttribute('readOnly', true);
+            accountPhoneRef.current.setAttribute('readOnly', true);
+            accountLevelRef.current.setAttribute('disabled', true);
+            setIsChangeActive(false);
+        }
     }
 
     return(
