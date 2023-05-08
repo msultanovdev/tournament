@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import jwt_decode from "jwt-decode";
 import './Account.css';
 import { Button } from "react-bootstrap";
+import axios from "axios";
 
 const Account = () => {
     const [isChangeActive, setIsChangeActive] = useState(false);
@@ -13,6 +14,7 @@ const Account = () => {
     const accountNameRef = useRef();
     const accountPhoneRef = useRef();
     const accountLevelRef = useRef();
+
 
     useEffect(() => {
         // const token = localStorage.getItem('token');
@@ -35,6 +37,49 @@ const Account = () => {
         setPhone(`${user.phoneNumber}`);
         setLevel(`${user.sportsCategory}`);
         setIsChangeActive(false);
+    }
+
+    const saveChanges = async () => {
+        const names = name.split(' ');
+        
+        const formData = [
+            {
+              op: "replace",
+              path: "firstName",
+              value: names[0]
+            },
+            {
+              op: "replace",
+              path: "middleName",
+              value: names[1]
+            },
+            {
+              op: "replace",
+              path: "lastName",
+              value: names[2]
+            },
+            {
+              op: "replace",
+              path: "gender",
+              value: user.gender
+            },
+            {
+              op: "replace",
+              path: "phoneNumber",
+              value: phone
+            },
+            {
+              op: "replace",
+              path: "sportsCategory",
+              value: level
+            },
+          ];
+
+        const {data} = await axios.patch(`${process.env.REACT_APP_BASE_API_URL}/api/account/${user.id}`, formData, {headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }});
+        console.log(data);
+        localStorage.setItem('user', JSON.stringify(data));
     }
 
     return(
@@ -82,7 +127,7 @@ const Account = () => {
                     {!isChangeActive ? 
                         <Button onClick={changeButton}>Изменить</Button> : 
                         <div className="save-buttons">
-                            <Button variant="success" onClick={changeButton}>Сохранить</Button>
+                            <Button variant="success" onClick={saveChanges}>Сохранить</Button>
                             <Button variant="danger" onClick={cancelSave}>Отменить</Button>
                         </div>
                     }
