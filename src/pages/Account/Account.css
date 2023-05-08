@@ -1,5 +1,5 @@
 .account {
-    background-color: rgba(204, 204, 204, 0.798);
+    /* background-color: rgba(204, 204, 204, 0.798); */
     min-height: 90vh;
 }
 
@@ -15,11 +15,12 @@
 }
 
 .account-info {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 20px 5px;
+    padding: 20px 20px;
     background-color: white;
     border-radius: 16px;
 }
@@ -64,10 +65,8 @@
 .account-info-wrapper p {
     margin: 0 auto;
 }
-.save-buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
+.cancel-btn {
+    margin-left: 10px;
 }
 
 select {
@@ -86,6 +85,6 @@ select {
 }
 @media screen and (max-width: 600px) {
     .account__container {
-        width: 98%;
+        width: 96%;
     }
 }
