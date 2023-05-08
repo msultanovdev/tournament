@@ -15,6 +15,7 @@
 }
 
 .account-info {
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -29,7 +30,6 @@
     font-size: 16px;
     margin: 0;
 }
-
 @media screen and (max-width: 1200px) {
     .account__container {
         width: 50%;

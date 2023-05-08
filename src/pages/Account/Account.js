@@ -29,6 +29,10 @@ const Account = () => {
                     <p>Уровень готовности: {user.sportsCategory}</p>
                     <Button>Изменить</Button>
                 </div>
+                <div className="account-info">
+                    <h3>Мои рейтинг</h3>
+                    <p className="account-info-rating">2200</p>
+                </div>
             </div>
         </div>
     );
