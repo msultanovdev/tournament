@@ -36,17 +36,18 @@ const Forms = () => {
   const [modalActive, setModalActive] = useState(false);
   const [enumGender, setEnumGender] = useState(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isTermsAgree, setIsTermsAgree] = useState(false);
 
   const navigate = useNavigate();
   const passwordRef = useRef();
 
   useEffect(() => {
-    if (emailError || nameError || numberPhoneError || ageError || levelError || genderError) {
+    if (emailError || nameError || numberPhoneError || ageError || levelError || genderError || !isTermsAgree) {
       setValidForm(false)
     } else {
       setValidForm(true)
     }
-  }, [nameError, emailError, numberPhoneError, ageError, levelError, genderError])
+  }, [nameError, emailError, numberPhoneError, ageError, levelError, genderError, isTermsAgree]);
 
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -183,8 +184,6 @@ const Forms = () => {
       sportsCategory: level
     }
 
-    console.log(formData);
-
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/auth/register`, formData);
       navigate('/login');
@@ -285,6 +284,8 @@ const Forms = () => {
           <input
             className={cl.check}
             type="checkbox"
+            value={isTermsAgree}
+            onChange={(e) => setIsTermsAgree(e.target.checked)}
           />
           <label>Я согласен на обработку <Link onClick={() => setModalActive(true)} to="#">персональных данных</Link></label>
         </div>

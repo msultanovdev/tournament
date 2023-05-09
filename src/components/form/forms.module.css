@@ -5,7 +5,8 @@
     align-items: center;
     margin: 0 auto;
     max-width: 600px;
-    margin-top: 70px;
+    margin-top: 40px;
+    padding-bottom: 20px;
 }
 p {
     margin-bottom: 20px;
