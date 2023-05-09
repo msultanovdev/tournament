@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import jwt_decode from "jwt-decode";
 import './Account.css';
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import InputMask from 'react-input-mask';
+import Loader from "../../components/UI/Loader";
 
 const Account = () => {
     const [isChangeActive, setIsChangeActive] = useState(false);
@@ -10,6 +11,7 @@ const Account = () => {
     const [name, setName] = useState(`${user.firstName} ${user.middleName} ${user.lastName}`);
     const [phone, setPhone] = useState(`${user.phoneNumber}`);
     const [level, setLevel] = useState(`${user.sportsCategory}`);
+    const [isLoading, setIsLoading] = useState(false);
 
     const accountNameRef = useRef();
     const accountPhoneRef = useRef();
@@ -24,14 +26,14 @@ const Account = () => {
 
     const changeButton = () => {
         accountNameRef.current.removeAttribute('readOnly');
-        accountPhoneRef.current.removeAttribute('readOnly');
+        accountPhoneRef.current.children[1].removeAttribute('readOnly');
         accountLevelRef.current.removeAttribute('disabled');
         setIsChangeActive(true);
     }
     
     const cancelSave = () => {
         accountNameRef.current.setAttribute('readOnly', true);
-        accountPhoneRef.current.setAttribute('readOnly', true);
+        accountPhoneRef.current.children[1].setAttribute('readOnly', true);
         accountLevelRef.current.setAttribute('disabled', true);
         setName(`${user.firstName} ${user.middleName} ${user.lastName}`);
         setPhone(`${user.phoneNumber}`);
@@ -41,6 +43,7 @@ const Account = () => {
 
     const saveChanges = async () => {
         try {
+            setIsLoading(true);
             const names = name.split(' ');
             const formData = [
             {
@@ -83,8 +86,9 @@ const Account = () => {
             console.log(e.response.data.message);
         } finally {
             accountNameRef.current.setAttribute('readOnly', true);
-            accountPhoneRef.current.setAttribute('readOnly', true);
+            accountPhoneRef.current.children[1].setAttribute('readOnly', true);
             accountLevelRef.current.setAttribute('disabled', true);
+            setIsLoading(false);
             setIsChangeActive(false);
         }
     }
@@ -94,6 +98,9 @@ const Account = () => {
             <div className="account__container">
                 <h2 className="account-title">Личный Кабинет</h2>
                 <div className="account-info">
+                    {isLoading && <div className="loader-wrapper">
+                        <Loader />
+                        </div>}
                     <h3>Мои данные</h3>
                     <div className="account-info-wrapper">
                         <p>ФИО: </p>
@@ -105,10 +112,10 @@ const Account = () => {
                             readOnly 
                         />
                     </div>
-                    <div className="account-info-wrapper">
+                    <div className="account-info-wrapper" ref={accountPhoneRef}>
                         <p>Номер телефона: </p>
-                        <input 
-                            ref={accountPhoneRef}
+                        <InputMask 
+                            mask="7 (999) 999-99-99"
                             className="account-input" 
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
