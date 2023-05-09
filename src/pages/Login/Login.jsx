@@ -4,6 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
 import { Context } from '../..';
 import { EyeSlashFill, EyeFill } from 'react-bootstrap-icons';
+import Loader from '../../components/UI/Loader';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const passwordRef = useRef();
 
@@ -55,6 +57,7 @@ const Login = () => {
       password: password
     }
     try {
+      setIsLoading(true);
       const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/Auth/login`, formData);
       store.isAuth = true;
       store.setUser(data.user);
@@ -65,6 +68,8 @@ const Login = () => {
       console.log(e.response.data.message);
       setLoginError(e.response.data.message);
       setPassword('');
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -79,6 +84,9 @@ const Login = () => {
 
   return (
     <div className={cl.entry}>
+      {isLoading && <div className='loader-wrapper'>
+          <Loader />
+        </div>}
       <p className={cl.header}>Войдите в свою учетную запись,
         чтобы продолжить</p>
       <p style={{color: "red", textAlign: "center", fontSize: "18px"}}>{loginError}</p>

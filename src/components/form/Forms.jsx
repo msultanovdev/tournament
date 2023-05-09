@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Modal from "../../modal/Modal";
 import InputMask from 'react-input-mask';
 import { EyeSlashFill, EyeFill } from 'react-bootstrap-icons';
+import Loader from '../UI/Loader';
 
 const Forms = () => {
   const [name, setName] = useState('')
@@ -37,6 +38,7 @@ const Forms = () => {
   const [enumGender, setEnumGender] = useState(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isTermsAgree, setIsTermsAgree] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const passwordRef = useRef();
@@ -185,17 +187,23 @@ const Forms = () => {
     }
 
     try {
+      setIsLoading(true);
       const response = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/auth/register`, formData);
       navigate('/login');
       console.log(response);
     } catch (error) {
       setEmailError(error.response.data.message);
       console.log(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
     <form className={cl.form} onSubmit={handleSubmit}>
+      {isLoading && <div className='loader-wrapper'>
+          <Loader />
+        </div>}
       <p className={cl.prr}>Регистрация</p>
       {(nameDirty && nameError) && <div style={{color: "red", marginBottom: 10}}>{nameError}</div>}
       <input
@@ -275,7 +283,7 @@ const Forms = () => {
         <option value="" disabled hidden defaultValue>
           Уровень подготовки
         </option>
-        <option>МС</option>
+        <option>Мастер Спорта</option>
         <option>Разряд</option>
         <option>Любитель</option>
         <option>Новичок</option>
