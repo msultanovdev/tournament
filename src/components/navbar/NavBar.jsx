@@ -21,6 +21,7 @@ function OffcanvasExample() {
   const handleLeaveClick = () => {
     setShowOffcanvas(false);
     store.isAuth = false;
+    store.role = "";
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     navigate('/');
@@ -43,7 +44,7 @@ function OffcanvasExample() {
           <Container fluid>
             <Navbar.Brand><Link to="/" style={{color: "white"}}>Турнир</Link></Navbar.Brand>
             <Navbar.Toggle
-                style={{color: "white"}}
+              style={{color: "white"}}
               aria-controls={`offcanvasNavbar-expand-${expand}`}
               onClick={() => setShowOffcanvas(true)}
             />

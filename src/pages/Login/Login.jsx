@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Context } from '../..';
 import { EyeSlashFill, EyeFill } from 'react-bootstrap-icons';
 import Loader from '../../components/UI/Loader';
+import jwtDecode from 'jwt-decode';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -61,6 +62,8 @@ const Login = () => {
       const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/Auth/login`, formData);
       store.isAuth = true;
       store.setUser(data.user);
+      const decodedToken = jwtDecode(data.accessToken);
+      store.setRole(decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('token', data.accessToken);
       navigate('/');

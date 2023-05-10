@@ -5,6 +5,7 @@ import Forms from "./components/form/Forms";
 import Choice from "./components/choice/Choice";
 import Description from "./components/Description";
 import Account from "./pages/Account/Account";
+import Participants from "./pages/Participants/Participants";
 
 export const guestRoutes = [
     {
@@ -41,6 +42,10 @@ export const authRoutes = [
     {
         path: 'account',
         element: Account
+    },
+    {
+        path: 'participants',
+        element: Participants
     }
 ];
 
@@ -64,5 +69,9 @@ export const refereeRoutes = [
     {
         path: 'account',
         element: Account
+    },
+    {
+        path: 'participants',
+        element: Participants
     }
 ];

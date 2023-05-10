@@ -1,10 +1,22 @@
 import { makeAutoObservable } from "mobx";
+import jwtDecode from "jwt-decode";
+import { configure } from "mobx";
+
+configure({
+    enforceActions: "never",
+});
 
 const token = localStorage.getItem('token');
+let role = "User";
+if(token) {
+    const user = jwtDecode(token);
+    role = user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+}
 
 export default class Store {
     user = {};
     isAuth = token ? true : false;
+    role = role;
 
     constructor() {
         makeAutoObservable(this);
@@ -16,6 +28,10 @@ export default class Store {
 
     setUser(user) {
         this.user = user;
+    }
+
+    setRole(role) {
+        this.role = role;
     }
 
 }
