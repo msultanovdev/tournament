@@ -15,9 +15,9 @@ function App () {
     <>
       <NavBar />
       <Routes>
-          {store.isAuth ? authRoutes.map((route) => {
+          {store.role === 'Referee' ? refereeRoutes.map((route) => {
             return <Route key={route.path} exact path={route.path} element={<route.element />} />
-          }) : store.role === 'Referee' ? refereeRoutes.map((route) => {
+          }) : store.isAuth ? authRoutes.map((route) => {
             return <Route key={route.path} exact path={route.path} element={<route.element />} />
           }) : guestRoutes.map((route) => {
             return <Route key={route.path} exact path={route.path} element={<route.element />} />
