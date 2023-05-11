@@ -92,10 +92,11 @@ const Participants = () => {
                 <table className='parts-table'>
                     <thead>
                         <tr>
+                            <th>№</th>
                             <th className='parts-table-name'>ФИО</th>
                             <th>Рейтинг</th>
                             <th>Участвовал</th>
-                            <th>Заблокирован</th>
+                            <th>Заблокировать</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -104,7 +105,8 @@ const Participants = () => {
                                 // const initMiddleName = player.middleName[0];
                                 // const initLastName = player.lastName[0];
                                 return <tr className='parts-table-info' key={player.playerId}>
-                                    <th className='parts-table-name'>{player.firstName} {player.middleName}. {player.lastName}.</th>
+                                    <th>{index + 1}</th>
+                                    <th className='parts-table-name'>{player.firstName} {player.middleName} {player.lastName}</th>
                                     <th>{player.currentRating}</th>
                                     {store.role === 'Referee' && 
                                         <>
