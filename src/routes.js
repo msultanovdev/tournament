@@ -42,10 +42,6 @@ export const authRoutes = [
     {
         path: 'account',
         element: Account
-    },
-    {
-        path: 'participants',
-        element: Participants
     }
 ];
 
