@@ -10,9 +10,8 @@ const Home = () => {
       <div className="home">
         <div className="home-mask"></div>
         <div className="home__links">
-          {!store.isAuth && <Link to="login">Вход</Link>}
-          {!store.isAuth && <Link to="form">Регистрация</Link>}
-          {(store.role === 'Referee' || store.role === 'Admin') && <Link to="participants">Участники</Link>}
+          {!store.isAuth ? <><Link to="login">Вход</Link><Link to="form">Регистрация</Link></> : <Link to="account">Личный Кабинет</Link>}
+          {store.isAuth}
           <Link to="competitions">Соревнования</Link>
         </div>
       </div>

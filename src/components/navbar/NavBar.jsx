@@ -22,8 +22,9 @@ function OffcanvasExample() {
     setShowOffcanvas(false);
     store.isAuth = false;
     store.role = "";
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.clear();
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('user');
     navigate('/');
   };
 
