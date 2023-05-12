@@ -1,0 +1,28 @@
+.create-modal {
+    padding: 15px;
+    color: white;
+    z-index: 101;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 400px;
+    background-color: #082854;
+    border-radius: 16px;
+}
+.create-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+    font-weight: 700;
+    font-size: 2.4rem;
+}
+
+@media screen and (max-width: 1000px) {
+    .create-modal {
+        width: 98%;
+        height: min-content;
+    }
+}
