@@ -1,11 +1,11 @@
 import Home from "./pages/Home/Home";
-import Competitions from "./components/competitions/Competitions";
 import Login from "./pages/Login/Login";
 import Forms from "./components/form/Forms";
 import Choice from "./components/choice/Choice";
 import Description from "./components/Description";
 import Account from "./pages/Account/Account";
 import Participants from "./pages/Participants/Participants";
+import Competitions from "./pages/Сompetitions/Сompetitions";
 
 export const guestRoutes = [
     {

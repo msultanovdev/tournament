@@ -18,6 +18,7 @@ export default class Store {
     isAuth = token ? true : false;
     role = role;
     players = [];
+    competitions = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -37,6 +38,10 @@ export default class Store {
 
     setPlayers(players) {
         this.players = players;
+    }
+
+    setCompetitions(competitions) {
+        this.competitions = competitions;
     }
 
 }
