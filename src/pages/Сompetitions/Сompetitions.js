@@ -9,7 +9,6 @@ import CreateModal from '../../components/createModal/CreateModal';
 import { observer } from 'mobx-react-lite';
 
 const Competitions = () => {
-    const [competitions, setCompetitions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isCreateModal, setIsCreateModal] = useState(false);
 
@@ -21,7 +20,7 @@ const Competitions = () => {
         try {
             setIsLoading(true);
             const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition`, {headers: {Authorization: `Bearer ${token}`}});
-            setCompetitions(data.competition);
+            store.setCompetitions(data.value.competition);
         } catch (e) {
             console.log(e);
         } finally {
@@ -45,13 +44,14 @@ const Competitions = () => {
             ></div>
             <h2 className="competitions-title">Соревнования</h2>
             <div className="competitions-items">
-                {competitions ? competitions.map(competition => {
+                {store.competitions ? store.competitions.map(competition => {
                     const data = new Date(competition.startDateTime);
+                    const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
 
-                    return <CompetitionItem key={competition.id} date={data} title={competition.title} />
+                    return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
                 }) : "Увы, соревнований нет!"}
-                {/* <CompetitionItem date={date} title="Турнир выходного дня" /> */}
-            {isLoading && <Loader />}
+            {isLoading && <div className='loader-wrapper'>
+                <Loader /></div>}
             </div>
             {store.role === 'Admin' && 
                 <Button 

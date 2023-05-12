@@ -5,7 +5,7 @@
     text-align: center;
 }
 .competitions-mask {
-    height: 100vh;
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
@@ -15,6 +15,7 @@
 }
 .competitions-container {
     width: 100%;
+    padding-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
