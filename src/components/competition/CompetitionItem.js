@@ -12,8 +12,8 @@ const CompetitionItem = ({id, date, title}) => {
     const onRemoveCompetition = async (id) => {
         try {
             setIsLoading(true);
-            await axios.delete(`${process.env.REACT_APP_BASE_API_URL}/api/competition/delete/${id}`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
-            window.location.reload();
+            const {data} = await axios.delete(`${process.env.REACT_APP_BASE_API_URL}/api/competition/delete/${id}`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            store.setCompetitions(data.competition);
         } catch (e) {
             console.log(e);
         } finally {
