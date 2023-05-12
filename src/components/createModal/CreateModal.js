@@ -14,15 +14,25 @@ const CreateModal = ({setModal}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFormValidate, setIsFormValidate] = useState(false);
 
+    const [isValidDate, setIsValidDate] = useState(false);
+
     const {store} = useContext(Context);
 
     useEffect(() => {
-        if(title, description, startDateTime, placeDescription) {
+        if(Date.parse(startDateTime) < Date.now()) {
+            setIsValidDate(false);
+        } else {
+            setIsValidDate(true);
+        }
+    }, [startDateTime]);
+
+    useEffect(() => {
+        if(title && description && startDateTime && placeDescription && isValidDate) {
             setIsFormValidate(true);
         } else {
             setIsFormValidate(false);
         }
-    }, [title, description, startDateTime, placeDescription]);
+    }, [title, description, placeDescription, isValidDate]);
 
     const createCompetition = async () => {
         try {
@@ -33,12 +43,12 @@ const CreateModal = ({setModal}) => {
                 startDateTime,
                 placeDescription
             }
-            await axios
+            const {data} = await axios
             .post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/create`, 
             formData, 
             {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
             setModal(false);
-            window.location.reload();
+            store.setCompetitions(data.competition);
         } catch (e) {
             console.log(e.response.data.message);
         } finally {
