@@ -17,7 +17,9 @@ const CompetitionItem = ({id, date, title}) => {
 
     useEffect(() => {
         if(user.competitionId) {
+            console.log(user);
             store.isJoinDisabled = true;
+            store.setJoinedCompetition(store.competitions.filter(comp => comp.id === user.competitionId));
         }
     }, []);
 
@@ -39,7 +41,7 @@ const CompetitionItem = ({id, date, title}) => {
             const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/join`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
             localStorage.setItem('user', JSON.stringify(data));
             setUser(data);
-            store.setCompetitions(store.competitions);
+            store.setJoinedCompetition(store.competitions.filter(comp => comp.id === data.competitionId));
             store.isJoinDisabled = true;
         } catch (e) {
             console.log(e);
@@ -54,6 +56,7 @@ const CompetitionItem = ({id, date, title}) => {
             const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/leave`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
             localStorage.setItem('user', JSON.stringify(data));
             setUser(data);
+            store.setJoinedCompetition([]);
             store.isJoinDisabled = false;
         } catch (e) {
             console.log(e);

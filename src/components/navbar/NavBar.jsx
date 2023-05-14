@@ -22,9 +22,9 @@ function OffcanvasExample() {
     setShowOffcanvas(false);
     store.isAuth = false;
     store.role = "";
+    store.setJoinedCompetition([]);
+    store.setIsJoinDisabled(false);
     localStorage.clear();
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('user');
     navigate('/');
   };
 

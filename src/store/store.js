@@ -20,6 +20,7 @@ export default class Store {
     players = [];
     competitions = [];
     isJoinDisabled = false;
+    joinedCompetition = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -49,4 +50,7 @@ export default class Store {
         this.isJoinDisabled = bool;
     }
 
+    setJoinedCompetition(competitions) {
+        this.joinedCompetition = competitions;
+    }
 }

@@ -12,7 +12,6 @@ const Competitions = () => {
     const {store} = useContext(Context);
     const [isLoading, setIsLoading] = useState(false);
     const [isCreateModal, setIsCreateModal] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user'));
 
     const token = localStorage.getItem('token');
 
@@ -44,22 +43,28 @@ const Competitions = () => {
             ></div>
             <h2 className="competitions-title">Соревнования</h2>
             <div className="competitions-items">
-                {store.competitions && store.competitions.map(competition => {
-                    if(user.competitionId === competition.id) {
-                        const data = new Date(competition.startDateTime);
-                        const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
-                        return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
-                    }
+                {store.joinedCompetition && store.joinedCompetition.map(competition => {
+                    const data = new Date(competition.startDateTime);
+                    const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
+                    return (<div key={competition.id} style={{display: 'flex', flexDirection: 'column', width: '100%', textAlign: 'center'}}>
+                        <p>Вы зарегистрированы:</p>
+                        <CompetitionItem id={competition.id} date={parsedData} title={competition.title} />
+                        <hr />
+                    </div>)
                 })}
-                {store.competitions.length ? store.competitions.map(competition => {
-                    if(competition.id === user.competitionId) {
-                        return null;
-                    } else {
+            <p className="competition-danger-text">*Внимание. Вы можете зарегистрироваться только на один турнир!*</p>
+                {(store.competitions.length && store.joinedCompetition.length) ? store.competitions.map(competition => {
+                        if(competition.id === store.joinedCompetition[0].id) {
+                            return null;
+                        }
                         const data = new Date(competition.startDateTime);
                         const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
                         return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
-                    }
-                }) : "Увы, соревнований нет!"}
+                }) : (store.competitions.length) ? store.competitions.map(competition => {
+                    const data = new Date(competition.startDateTime);
+                    const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
+                    return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+            }) : "Увы, соревнований нет!"}
             {isLoading && <div className='loader-wrapper'>
                 <Loader /></div>}
             </div>
