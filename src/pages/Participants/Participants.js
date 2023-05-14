@@ -73,7 +73,7 @@ const Participants = () => {
     const saveChanges = async () => {
         try {
             setIsLoading(true);
-            const res = await axios.put(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/88d3eefc-af3c-4ffa-bd2f-ba02f81a7b3a`, store.players, 
+            const res = await axios.put(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/${localStorage.getItem('selectedCompetitionId')}`, store.players, 
             {headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }});

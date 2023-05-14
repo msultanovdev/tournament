@@ -9,12 +9,12 @@ import CreateModal from '../../components/createModal/CreateModal';
 import { observer } from 'mobx-react-lite';
 
 const Competitions = () => {
+    const {store} = useContext(Context);
     const [isLoading, setIsLoading] = useState(false);
     const [isCreateModal, setIsCreateModal] = useState(false);
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const token = localStorage.getItem('token');
-
-    const {store} = useContext(Context);
 
     const fetchData = async () => {
         try {
@@ -44,11 +44,21 @@ const Competitions = () => {
             ></div>
             <h2 className="competitions-title">Соревнования</h2>
             <div className="competitions-items">
-                {store.competitions ? store.competitions.map(competition => {
-                    const data = new Date(competition.startDateTime);
-                    const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
-
-                    return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+                {store.competitions && store.competitions.map(competition => {
+                    if(user.competitionId === competition.id) {
+                        const data = new Date(competition.startDateTime);
+                        const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
+                        return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+                    }
+                })}
+                {store.competitions.length ? store.competitions.map(competition => {
+                    if(competition.id === user.competitionId) {
+                        return null;
+                    } else {
+                        const data = new Date(competition.startDateTime);
+                        const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
+                        return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+                    }
                 }) : "Увы, соревнований нет!"}
             {isLoading && <div className='loader-wrapper'>
                 <Loader /></div>}

@@ -1,11 +1,11 @@
-.parts-container {
+.players-container {
     padding: 5px;   
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
 }
-.parts-title {
+.players-title {
     text-align: center;
     font-size: 2.2rem;
 }
@@ -27,13 +27,12 @@
 
 table, th, td {
     border: 1px solid;
-    text-align: center;
 }
 
-.parts-table-name {
-    width: 50%;
+.players-table-name {
+    width: 40%;
 }
-.parts-table-info th {
+.players-table-info th {
     font-weight: 500;
 }
 .table-checkbox {

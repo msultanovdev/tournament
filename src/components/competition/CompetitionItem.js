@@ -7,27 +7,19 @@ import Loader from '../UI/Loader';
 import {Table} from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
 const CompetitionItem = ({id, date, title}) => {
     const {store} = useContext(Context);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    const fetchData = async () => {
-        try {
-            const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/${selectedCompetitionId}`, {headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            }});
-            console.log(data.players);
-        } catch (e) {
-            console.log(e.response.data.message);
-        }
-    }
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
     useEffect(() => {
-        fetchData();
-    });
+        if(user.competitionId) {
+            store.isJoinDisabled = true;
+        }
+    }, []);
 
     const onRemoveCompetition = async (id) => {
         try {
@@ -44,7 +36,25 @@ const CompetitionItem = ({id, date, title}) => {
     const joinToCompetition = async (id) => {
         try {
             setIsLoading(true);
-            await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/join`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/join`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            localStorage.setItem('user', JSON.stringify(data));
+            setUser(data);
+            store.setCompetitions(store.competitions);
+            store.isJoinDisabled = true;
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const leaveCompetition = async (id) => {
+        try {
+            setIsLoading(true);
+            const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/leave`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
+            localStorage.setItem('user', JSON.stringify(data));
+            setUser(data);
+            store.isJoinDisabled = false;
         } catch (e) {
             console.log(e);
         } finally {
@@ -73,11 +83,27 @@ const CompetitionItem = ({id, date, title}) => {
                     </>
                 : store.role === 'Referee' ? <Button>Подробно</Button>
                     :
-                    <Button variant='success' onClick={() => joinToCompetition(id)}>Зарегистрироваться</Button>
+                    <>
+                       {!(user.competitionId === id) ? 
+                       <>
+                       <Button 
+                        onClick={() => {navigate('/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                        style={{marginRight: '15px'}}><Table /></Button>
+                       <Button variant='success' 
+                        disabled={store.isJoinDisabled}
+                        onClick={() => joinToCompetition(id)}>Зарегистрироваться</Button>
+                       </> : 
+                       <>
+                       <Button 
+                        onClick={() => {navigate('/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                        style={{marginRight: '15px'}}><Table /></Button>
+                       <Button variant='danger' onClick={() => leaveCompetition(id)}>Покинуть Турнир</Button>
+                       </>} 
+                    </>
                 }
             </div>
         </div>
     )
 }
 
-export default CompetitionItem;
+export default observer(CompetitionItem);

@@ -6,6 +6,7 @@ import Description from "./components/Description";
 import Account from "./pages/Account/Account";
 import Participants from "./pages/Participants/Participants";
 import Competitions from "./pages/Сompetitions/Сompetitions";
+import Players from "./pages/Players/Players";
 
 export const guestRoutes = [
     {
@@ -42,6 +43,10 @@ export const authRoutes = [
     {
         path: 'account',
         element: Account
+    },
+    {
+        path: 'players',
+        element: Players
     }
 ];
 
