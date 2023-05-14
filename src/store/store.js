@@ -19,6 +19,8 @@ export default class Store {
     role = role;
     players = [];
     competitions = [];
+    isJoinDisabled = false;
+    joinedCompetition = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -44,4 +46,11 @@ export default class Store {
         this.competitions = competitions;
     }
 
+    setIsJoinDisabled(bool) {
+        this.isJoinDisabled = bool;
+    }
+
+    setJoinedCompetition(competitions) {
+        this.joinedCompetition = competitions;
+    }
 }

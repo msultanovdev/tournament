@@ -15,7 +15,7 @@ function App () {
     <>
       <NavBar />
       <Routes>
-          {store.role === 'Referee' ? refereeRoutes.map((route) => {
+          {(store.role === 'Referee' || store.role === 'Admin') ? refereeRoutes.map((route) => {
             return <Route key={route.path} exact path={route.path} element={<route.element />} />
           }) : store.isAuth ? authRoutes.map((route) => {
             return <Route key={route.path} exact path={route.path} element={<route.element />} />

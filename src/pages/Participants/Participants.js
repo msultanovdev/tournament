@@ -12,10 +12,12 @@ const Participants = () => {
     const [isCheckedParts, setIsCheckedParts] = useState([]);
     const [isCheckedBlocked, setIsCheckedBlocked] = useState([]);
 
+    const selectedCompetitionId = localStorage.getItem('selectedCompetitionId');
+
     const fetchData = async () => {
         try {
             setIsLoading(true);
-            const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/88d3eefc-af3c-4ffa-bd2f-ba02f81a7b3a`, {headers: {
+            const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/${selectedCompetitionId}`, {headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }});
             setParticipants(data.players);
@@ -71,7 +73,7 @@ const Participants = () => {
     const saveChanges = async () => {
         try {
             setIsLoading(true);
-            const res = await axios.put(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/88d3eefc-af3c-4ffa-bd2f-ba02f81a7b3a`, store.players, 
+            const res = await axios.put(`${process.env.REACT_APP_BASE_API_URL}/api/competition/players/${localStorage.getItem('selectedCompetitionId')}`, store.players, 
             {headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }});
@@ -102,32 +104,26 @@ const Participants = () => {
                     <tbody>
                         {
                             participants && participants.map((player, index) => {
-                                // const initMiddleName = player.middleName[0];
-                                // const initLastName = player.lastName[0];
                                 return <tr className='parts-table-info' key={player.playerId}>
                                     <th>{index + 1}</th>
                                     <th className='parts-table-name'>{player.firstName} {player.middleName} {player.lastName}</th>
                                     <th>{player.currentRating}</th>
-                                    {store.role === 'Referee' && 
-                                        <>
-                                            <th>
-                                                <input 
-                                                    onChange={(e) => handleIsParticipation(e, player.playerId, index)}
-                                                    checked={isCheckedParts[index]}
-                                                    type='checkbox'
-                                                    className='table-checkbox' 
-                                            />
-                                            </th>
-                                            <th>
-                                                <input 
-                                                    onChange={(e) => handleIsBlocked(e, player.playerId, index)}
-                                                    checked={isCheckedBlocked[index]}
-                                                    type='checkbox'
-                                                    className='table-checkbox'
-                                                />
-                                            </th>
-                                        </>
-                                    }
+                                    <th>
+                                        <input 
+                                            onChange={(e) => handleIsParticipation(e, player.playerId, index)}
+                                            checked={isCheckedParts[index]}
+                                            type='checkbox'
+                                            className='table-checkbox' 
+                                        />
+                                    </th>
+                                    <th>
+                                        <input 
+                                            onChange={(e) => handleIsBlocked(e, player.playerId, index)}
+                                            checked={isCheckedBlocked[index]}
+                                            type='checkbox'
+                                            className='table-checkbox'
+                                        />
+                                    </th>
                                 </tr>
                             })
                         }
