@@ -38,8 +38,10 @@ const Players = ({competitionId}) => {
                         <th>№</th>
                         <th className='players-table-name'>ФИО</th>
                         <th>Рейтинг</th>
+                        <th>И</th>
                         <th>ЗМ</th>
                         <th>ПМ</th>
+                        <th>РМ</th>
                         <th>В</th>
                         <th>П</th>
                     </tr>
@@ -51,8 +53,10 @@ const Players = ({competitionId}) => {
                                 <th>{index + 1}</th>
                                 <th className='players-table-name'>{player.firstName} {player.middleName} {player.lastName}</th>
                                 <th>{player.currentRating}</th>
+                                <th>{player.winGameCount + player.loseGameCount}</th>
                                 <th>{player.scored}</th>
                                 <th>{player.missed}</th>
+                                <th>{player.scored - player.missed}</th>
                                 <th>{player.winGameCount}</th>
                                 <th>{player.loseGameCount}</th>
                             </tr>
