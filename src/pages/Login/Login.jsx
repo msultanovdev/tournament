@@ -68,7 +68,7 @@ const Login = () => {
       localStorage.setItem('token', data.accessToken);
       navigate('/');
     } catch (e) {
-      console.log(e.response.data.message);
+      console.log(e);
       setLoginError(e.response.data.message);
       setPassword('');
     } finally {

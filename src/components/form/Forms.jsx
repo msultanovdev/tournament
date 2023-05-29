@@ -194,7 +194,7 @@ const Forms = () => {
       console.log(response);
     } catch (error) {
       setEmailError(error.response.data.message);
-      console.log(error.response.data.message);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
