@@ -63,7 +63,8 @@ const Forms = () => {
     }
   }
 
-  const passwordHideHandler = () => {
+  const passwordHideHandler = (e) => {
+    e.preventDefault();
     setIsPasswordVisible(!isPasswordVisible);
     if(!isPasswordVisible) {
       passwordRef.current.type = 'text';
@@ -233,7 +234,7 @@ const Forms = () => {
           placeholder="Пароль"
           className={`${cl.input}`}
         />
-        <button className={cl.passwordBtn} onClick={passwordHideHandler}>
+        <button className={cl.passwordBtn} onClick={(e) => passwordHideHandler(e)}>
           {!isPasswordVisible ? <EyeSlashFill width='100%' height="100%" /> : <EyeFill width='100%' height="100%" />}
         </button>
       </div>
