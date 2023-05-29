@@ -17,7 +17,6 @@ const CompetitionItem = ({id, date, title}) => {
 
     useEffect(() => {
         if(user.competitionId) {
-            console.log(user);
             store.isJoinDisabled = true;
             store.setJoinedCompetition(store.competitions.filter(comp => comp.id === user.competitionId));
         }
@@ -65,8 +64,13 @@ const CompetitionItem = ({id, date, title}) => {
         }
     }
 
+    const navigateToChoice = () => {
+        localStorage.setItem('selectedCompetitionId', id);
+        navigate('/choice');
+    }
+
     return(
-        <div className="competition-container">
+        <div className="competition-container" onClick={() => navigateToChoice()}>
                 {isLoading && <div className='loading-wrapper'><Loader /></div>}
             <div>
                 <h2 className="competition-title">{title}</h2>
@@ -90,7 +94,7 @@ const CompetitionItem = ({id, date, title}) => {
                        {!(user.competitionId === id) ? 
                        <>
                        <Button 
-                        onClick={() => {navigate('/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                        onClick={() => {navigate('/choice/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
                         style={{marginRight: '15px'}}><Table /></Button>
                        <Button variant='success' 
                         disabled={store.isJoinDisabled}
@@ -98,13 +102,14 @@ const CompetitionItem = ({id, date, title}) => {
                        </> : 
                        <>
                        <Button 
-                        onClick={() => {navigate('/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                        onClick={() => {navigate('/choice/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
                         style={{marginRight: '15px'}}><Table /></Button>
                        <Button variant='danger' onClick={() => leaveCompetition(id)}>Покинуть Турнир</Button>
                        </>} 
                     </>
                 }
             </div>
+
         </div>
     )
 }
