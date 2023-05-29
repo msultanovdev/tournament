@@ -3,7 +3,7 @@ import NavBar from "./components/navbar/NavBar";
 import {Routes, Route} from "react-router-dom";
 import Footer from './components/Footer/Footer';
 import { authRoutes, guestRoutes, refereeRoutes } from './routes';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Context } from '.';
 import NotFound from './pages/NotFound/NotFound';
 import {observer} from "mobx-react-lite";
