@@ -75,6 +75,9 @@ function OffcanvasExample() {
                   {store.isAuth && <LinkContainer to="/account" onClick={handleLinkClick}>
                     <Nav.Link>Личный Кабинет</Nav.Link>
                   </LinkContainer>}
+                  {store.isAuth && <LinkContainer to="/competitions" onClick={handleLinkClick}>
+                    <Nav.Link>Соревнования</Nav.Link>
+                  </LinkContainer>}
                   {store.isAuth && <LinkContainer to="/" onClick={handleLeaveClick}>
                     <Nav.Link>Выйти</Nav.Link>
                   </LinkContainer>}

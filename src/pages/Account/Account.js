@@ -122,7 +122,9 @@ const Account = () => {
                             readOnly 
                         />
                     </div>
-                    <p>Возраст: {user.age}</p>
+                    <div className="account-age-wrapper">
+                        <p style={{display: 'flex', justifyContent: 'center'}}>Возраст: </p><p>{user.age}</p>
+                    </div>
                     <div className="account-info-wrapper">
                         <p>Уровень готовности: </p>
                         <select 
@@ -132,7 +134,7 @@ const Account = () => {
                             value={level}
                             onChange={e => setLevel(e.target.value)}
                         >
-                            <option>Мастер Спорта</option>
+                            <option>Мастер спорта</option>
                             <option>Разряд</option>
                             <option>Любитель</option>
                             <option>Новичок</option>

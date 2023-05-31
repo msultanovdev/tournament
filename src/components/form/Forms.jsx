@@ -284,7 +284,7 @@ const Forms = () => {
         <option value="" disabled hidden defaultValue>
           Уровень подготовки
         </option>
-        <option>Мастер Спорта</option>
+        <option>Мастер cпорта</option>
         <option>Разряд</option>
         <option>Любитель</option>
         <option>Новичок</option>

@@ -24,6 +24,15 @@
     background-color: white;
     border-radius: 16px;
     position: relative;
+    overflow-x: scroll;
+}
+.account-age-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.account-age-wrapper p {
+    width: 50%;
 }
 .account-info h3 {
     font-weight: 700;

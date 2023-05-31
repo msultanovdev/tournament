@@ -64,13 +64,24 @@ const CompetitionItem = ({id, date, title}) => {
         }
     }
 
-    const navigateToChoice = () => {
+    const navigateToChoice = (e) => {
+        e.stopPropagation();
         localStorage.setItem('selectedCompetitionId', id);
         navigate('/choice');
     }
 
+    const openTable = (e) => {
+        e.stopPropagation();
+        if((store.role === 'Referee' || store.role === 'Admin')) {
+            navigate('/participants'); 
+        } else {
+            navigate('/choice/players');
+        }
+        localStorage.setItem('selectedCompetitionId', `${id}`);
+    }
+
     return(
-        <div className="competition-container" onClick={() => navigateToChoice()}>
+        <div className="competition-container" onClick={(e) => navigateToChoice(e)}>
                 {isLoading && <div className='loading-wrapper'><Loader /></div>}
             <div>
                 <h2 className="competition-title">{title}</h2>
@@ -79,7 +90,7 @@ const CompetitionItem = ({id, date, title}) => {
             <div>
                 {(store.role === 'Referee' || store.role === 'Admin') && 
                 <Button 
-                onClick={() => {navigate('/participants'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                onClick={(e) => openTable(e)}
                 style={{marginRight: '15px'}}><Table /></Button>}
                 {store.role === 'Admin' ? 
                     <>
@@ -94,7 +105,7 @@ const CompetitionItem = ({id, date, title}) => {
                        {!(user.competitionId === id) ? 
                        <>
                        <Button 
-                        onClick={() => {navigate('/choice/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
+                        onClick={(e) => openTable(e)}
                         style={{marginRight: '15px'}}><Table /></Button>
                        <Button variant='success' 
                         disabled={store.isJoinDisabled}
