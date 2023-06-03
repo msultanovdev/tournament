@@ -8,7 +8,7 @@ import Loader from "../../components/UI/Loader";
 const Account = () => {
     const [isChangeActive, setIsChangeActive] = useState(false);
     const user = JSON.parse(localStorage.getItem('user'));
-    const [name, setName] = useState(`${user.firstName} ${user.middleName} ${user.lastName}`);
+    const [name, setName] = useState(`${user.middleName} ${user.firstName} ${user.lastName}`);
     const [phone, setPhone] = useState(`${user.phoneNumber}`);
     const [level, setLevel] = useState(`${user.sportsCategory}`);
     const [isLoading, setIsLoading] = useState(false);

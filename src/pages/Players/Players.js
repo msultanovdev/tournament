@@ -51,7 +51,7 @@ const Players = ({competitionId}) => {
                         players.map((player, index) => {
                             return <tr className='players-table-info' key={player.playerId}>
                                 <th>{index + 1}</th>
-                                <th className='players-table-name'>{player.firstName} {player.middleName} {player.lastName}</th>
+                                <th className='players-table-name'>{player.middleName} {player.firstName} {player.lastName}</th>
                                 <th>{player.currentRating}</th>
                                 <th>{player.winGameCount + player.loseGameCount}</th>
                                 <th>{player.winGameCount}</th>

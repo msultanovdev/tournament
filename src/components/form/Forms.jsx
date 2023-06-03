@@ -176,9 +176,9 @@ const Forms = () => {
     e.preventDefault();
     const splitedName = name.split(' ');
     const formData = {
-      firstName: splitedName[0],
-      middleName: splitedName[1],
-      lastName: splitedName[1],
+      firstName: splitedName[1],
+      middleName: splitedName[0],
+      lastName: splitedName[2],
       email,
       phoneNumber,
       password,

@@ -106,7 +106,7 @@ const Participants = () => {
                             participants && participants.map((player, index) => {
                                 return <tr className='parts-table-info' key={player.playerId}>
                                     <th>{index + 1}</th>
-                                    <th className='parts-table-name'>{player.firstName} {player.middleName} {player.lastName}</th>
+                                    <th className='parts-table-name'>{player.middleName} {player.firstName} {player.lastName}</th>
                                     <th>{player.currentRating}</th>
                                     <th>
                                         <input 
