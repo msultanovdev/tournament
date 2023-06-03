@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ScheduleItem from '../../components/ScheduleItem/ScheduleItem';
 import './Schedule.css';
 import axios from 'axios';
+import { Context } from '../..';
+import { Button } from 'react-bootstrap';
 
 const Schedule = () => {
     const [data, setData] = useState([]);
+    const {store} = useContext(Context);
 
     const fetchData = async () => {
         const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition/${localStorage.getItem('selectedCompetitionId')}/schedule`, {
@@ -36,7 +39,10 @@ const Schedule = () => {
                      />
                 }) : ''
             }
-
+                {(!data.length && store.role === 'Admin') && 
+                <Button
+                    onClick={() => generateSchedule()}
+                >Сгенерировать расписание</Button>}
             </div>
         </div>
     );

@@ -112,6 +112,19 @@ input:-webkit-autofill {
     line-height: 16px;
 }
 
+.modalTitle {
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 700;
+}
+.modalText {
+    height: 100%;
+    font-size: 1.2rem;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
 @media(max-width: 800px) {
     .form {
         width: 400px;
