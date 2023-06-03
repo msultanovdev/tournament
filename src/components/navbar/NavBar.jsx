@@ -45,11 +45,13 @@ function OffcanvasExample() {
           <Container fluid>
             <Navbar.Brand><Link to="/" style={{color: "white"}}>Турнир</Link></Navbar.Brand>
             <Navbar.Toggle
+              className={`${cl.menuLinks}`}
               style={{color: "white"}}
               aria-controls={`offcanvasNavbar-expand-${expand}`}
               onClick={() => setShowOffcanvas(true)}
             />
             <Navbar.Offcanvas
+              className={`${cl.menuLinks}`}
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
               placement="end"
@@ -57,12 +59,14 @@ function OffcanvasExample() {
               onHide={handleOffcanvasClose}
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                <Offcanvas.Title 
+                  className={`${cl.menuLinks}`}
+                  id={`offcanvasNavbarLabel-expand-${expand}`}>
                   Меню
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
+                <Nav className={`justify-content-end flex-grow-1 pe-3 ${cl.links}`}>
                   <LinkContainer to="/" onClick={handleLinkClick}>
                     <Nav.Link>Главная</Nav.Link>
                   </LinkContainer>
@@ -78,11 +82,6 @@ function OffcanvasExample() {
                   {store.isAuth && <LinkContainer to="/competitions" onClick={handleLinkClick}>
                     <Nav.Link>Соревнования</Nav.Link>
                   </LinkContainer>}
-                  {store.isAuth && <LinkContainer to="/" onClick={handleLeaveClick}>
-                    <Nav.Link>Выйти</Nav.Link>
-                  </LinkContainer>}
-                  
-
                   <NavDropdown
                     title="Виды спорта"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -93,6 +92,9 @@ function OffcanvasExample() {
                       </NavDropdown.Item>
                     </LinkContainer>
                   </NavDropdown>
+                  {store.isAuth && <LinkContainer to="/" onClick={handleLeaveClick}>
+                    <Nav.Link>Выйти</Nav.Link>
+                  </LinkContainer>}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

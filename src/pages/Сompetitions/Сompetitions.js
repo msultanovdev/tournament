@@ -47,7 +47,7 @@ const Competitions = () => {
                     const data = new Date(competition.startDateTime);
                     const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
                     return (<div key={competition.id} style={{display: 'flex', flexDirection: 'column', width: '100%', textAlign: 'center'}}>
-                        <p>Вы зарегистрированы:</p>
+                        <p style={{fontSize: '1.2rem'}}>Вы зарегистрированы:</p>
                         <CompetitionItem id={competition.id} date={parsedData} title={competition.title} />
                         <hr />
                     </div>)

@@ -12,6 +12,22 @@
 /*    justify-content: space-between;*/
 /*}*/
 
+.links a {
+    font-size: 1.1rem;
+}
+.menuLinks {
+    font-size: 1.3rem;
+}
+
+@media (max-width: 1000px) {
+    .links a {
+        font-size: 2rem;
+        text-align: center;
+    }
+    .menuLinks {
+        font-size: 2.2rem;
+    }
+}
 
 @media (max-width: 800px) {
     .mobile_btn {
@@ -22,7 +38,13 @@
         z-index: 10;
         top: 28px;
     }
-
+    .links a {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    .menuLinks {
+        font-size: 2rem;
+    }
     .container {
         display: flex;
         flex-direction: column;
@@ -41,10 +63,6 @@
 
     .act {
         left: 0;
-    }
-
-    .menu li {
-        font-size: 28px;
     }
 }
 
