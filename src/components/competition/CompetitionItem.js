@@ -22,7 +22,9 @@ const CompetitionItem = ({id, date, title}) => {
         }
     }, []);
 
-    const onRemoveCompetition = async (id) => {
+    const onRemoveCompetition = async (e, id) => {
+        e.stopPropagation();
+
         try {
             setIsLoading(true);
             const {data} = await axios.delete(`${process.env.REACT_APP_BASE_API_URL}/api/competition/delete/${id}`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
@@ -34,7 +36,8 @@ const CompetitionItem = ({id, date, title}) => {
         }
     }
 
-    const joinToCompetition = async (id) => {
+    const joinToCompetition = async (e, id) => {
+        e.stopPropagation();
         try {
             setIsLoading(true);
             const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/join`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
@@ -49,7 +52,13 @@ const CompetitionItem = ({id, date, title}) => {
         }
     }
 
-    const leaveCompetition = async (id) => {
+    const changeCompetition = (e) => {
+        e.stopPropagation();
+    }
+
+    const leaveCompetition = async (e, id) => {
+        e.stopPropagation();
+
         try {
             setIsLoading(true);
             const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/leave`, {participantId: user.id, competitionId: id}, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}});
@@ -94,9 +103,11 @@ const CompetitionItem = ({id, date, title}) => {
                 style={{marginRight: '15px'}}><Table /></Button>}
                 {store.role === 'Admin' ? 
                     <>
-                        <Button variant='primary'>Редактировать</Button>
                         <Button 
-                            onClick={() => onRemoveCompetition(id)}
+                            onClick={(e) => changeCompetition(e)}
+                            variant='primary'>Редактировать</Button>
+                        <Button 
+                            onClick={(e) => onRemoveCompetition(e, id)}
                             variant='danger' style={{marginLeft: "15px"}}>Удалить</Button>
                     </>
                 : store.role === 'Referee' ? <Button>Подробно</Button>
@@ -109,13 +120,13 @@ const CompetitionItem = ({id, date, title}) => {
                         style={{marginRight: '15px'}}><Table /></Button>
                        <Button variant='success' 
                         disabled={store.isJoinDisabled}
-                        onClick={() => joinToCompetition(id)}>Зарегистрироваться</Button>
+                        onClick={(e) => joinToCompetition(e, id)}>Зарегистрироваться</Button>
                        </> : 
                        <>
                        <Button 
                         onClick={() => {navigate('/choice/players'); localStorage.setItem('selectedCompetitionId', `${id}`)}}
                         style={{marginRight: '15px'}}><Table /></Button>
-                       <Button variant='danger' onClick={() => leaveCompetition(id)}>Покинуть Турнир</Button>
+                       <Button variant='danger' onClick={(e) => leaveCompetition(e, id)}>Покинуть Турнир</Button>
                        </>} 
                     </>
                 }
