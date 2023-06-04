@@ -19,6 +19,15 @@ const Schedule = () => {
         console.log(data);
     }
     
+    const generateSchedule = async () => {
+        const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/tournament/competition/generate-schedule`, {competitionId: localStorage.getItem('selectedCompetitionId')}, {
+            headers: {
+                Authorization: localStorage.getItem('token')
+            }
+        });
+        console.log(data);
+    }
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -40,9 +49,12 @@ const Schedule = () => {
                 }) : ''
             }
                 {(!data.length && store.role === 'Admin') && 
-                <Button
-                    onClick={() => generateSchedule()}
-                >Сгенерировать расписание</Button>}
+                <div className="generate-btn-wrapper">
+                    <Button
+                        onClick={() => generateSchedule()}
+                    >Сгенерировать расписание</Button>
+                </div>
+                }
             </div>
         </div>
     );

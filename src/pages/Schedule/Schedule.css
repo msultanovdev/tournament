@@ -4,3 +4,7 @@
     font-size: 2.4rem;
     color: #082854;
 }
+.generate-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}

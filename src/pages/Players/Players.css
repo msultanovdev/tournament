@@ -8,6 +8,7 @@
 .players-title {
     text-align: center;
     font-size: 2.2rem;
+    margin: 10px 0px 20px 0px;
 }
 
 .players-table-wrapper {
@@ -28,6 +29,7 @@
 
 table, th, td {
     border: 1px solid;
+    padding: 5px;
 }
 
 .players-table-name {
