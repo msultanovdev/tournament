@@ -13,6 +13,8 @@ const CreateModal = ({setModal}) => {
     const [placeDescription, setPlaceDescription] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isFormValidate, setIsFormValidate] = useState(false);
+    const [roundsCount, setRoundsCount] = useState('');
+    const [tablesCount, setTablesCount] = useState('');
 
     const [isValidDate, setIsValidDate] = useState(false);
 
@@ -27,12 +29,12 @@ const CreateModal = ({setModal}) => {
     }, [startDateTime]);
 
     useEffect(() => {
-        if(title && description && startDateTime && placeDescription && isValidDate) {
+        if(title && description && startDateTime && placeDescription && isValidDate && tablesCount && roundsCount) {
             setIsFormValidate(true);
         } else {
             setIsFormValidate(false);
         }
-    }, [title, description, placeDescription, isValidDate]);
+    }, [title, description, placeDescription, isValidDate, tablesCount, roundsCount]);
 
     const createCompetition = async () => {
         try {
@@ -41,7 +43,9 @@ const CreateModal = ({setModal}) => {
                 title,
                 description,
                 startDateTime,
-                placeDescription
+                placeDescription,
+                tableCount: tablesCount,
+                roundsCount
             }
             const {data} = await axios
             .post(`${process.env.REACT_APP_BASE_API_URL}/api/competition/create`, 
@@ -96,6 +100,22 @@ const CreateModal = ({setModal}) => {
                     className='input'
                     placeholder='Описание места проведения'
                 ></input>
+                <div className="inputs-wrapper">
+                    <input 
+                        onChange={e => setRoundsCount(e.target.value)}
+                        value={roundsCount}
+                        className='input'
+                        type="number"
+                        placeholder="Число раундов"
+                    ></input>
+                    <input 
+                        onChange={e => setTablesCount(e.target.value)}
+                        value={tablesCount}
+                        className='input'
+                        type="number"
+                        placeholder="Число столов"
+                    ></input>
+                </div>
                 <Button 
                     onClick={() => createCompetition()}
                     disabled={!isFormValidate}

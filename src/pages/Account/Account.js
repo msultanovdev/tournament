@@ -26,7 +26,6 @@ const Account = () => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }}
             );
-            console.log(data);
             setUser(data);
         } catch (e) {
             console.log(e);
@@ -114,11 +113,11 @@ const Account = () => {
     return(
         <div className="account">
             <div className="account__container">
-            {isLoading && <div className="loader-wrapper">
-                        <Loader />
-                        </div>}
                 <h2 className="account-title">Личный Кабинет</h2>
                 <div className="account-info">
+                {isLoading && <div className="loader-wrapper">
+                        <Loader />
+                        </div>}
                     <h3>Мои данные</h3>
                     <div className="account-info-wrapper">
                         <p>ФИО: </p>

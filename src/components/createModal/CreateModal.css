@@ -43,6 +43,15 @@
     font-weight: 400;
     color: black;
 }
+.inputs-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.inputs-wrapper input {
+    width: 49%;
+}
 
 @media screen and (max-width: 1000px) {
     .create-modal {

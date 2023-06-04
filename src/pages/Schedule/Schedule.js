@@ -12,7 +12,7 @@ const Schedule = () => {
     const fetchData = async () => {
         const {data} = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/api/competition/${localStorage.getItem('selectedCompetitionId')}/schedule`, {
             headers: {
-                Authorization: localStorage.getItem('token')
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
         setData(data);
@@ -22,7 +22,7 @@ const Schedule = () => {
     const generateSchedule = async () => {
         const {data} = await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/tournament/competition/generate-schedule`, {competitionId: localStorage.getItem('selectedCompetitionId')}, {
             headers: {
-                Authorization: localStorage.getItem('token')
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
         console.log(data);
