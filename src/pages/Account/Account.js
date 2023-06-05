@@ -244,6 +244,7 @@ const Account = () => {
                                 />
                             </div>
                         </div>
+                        <hr />
                         <div className="account-players">
                             <div className="account-player">
                                 <p>{
