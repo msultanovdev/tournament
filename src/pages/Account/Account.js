@@ -14,6 +14,11 @@ const Account = () => {
     const [level, setLevel] = useState(`${user.sportsCategory}`);
     const [isLoading, setIsLoading] = useState(false);
 
+    const [firstPlayerScore, setFirstPlayerScore] = useState("");
+    const [secondPlayerScore, setSecondPlayerScore] = useState("");
+    const [isScoreValid, setIsScoreValid] = useState(false);
+    const [isConfirmedScore, setIsConfirmedScore] = useState(false);
+
     const accountNameRef = useRef();
     const accountPhoneRef = useRef();
     const accountLevelRef = useRef();
@@ -27,6 +32,8 @@ const Account = () => {
             }}
             );
             setUser(data);
+            setIsConfirmedScore(data.matchResultModels[0].score.isConfirmed);
+            console.log(data);
         } catch (e) {
             console.log(e);
         } finally {
@@ -40,6 +47,14 @@ const Account = () => {
         // const user = jwt_decode(token);
         // setMail(user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
     }, []);
+
+    useEffect(() => {
+        if((firstPlayerScore >= 0 && firstPlayerScore <= 11) && (secondPlayerScore >= 0 && secondPlayerScore <= 11)) {
+            setIsScoreValid(true);
+        } else {
+            setIsScoreValid(false);
+        }
+    }, [firstPlayerScore, secondPlayerScore]);
 
     const changeButton = () => {
         accountNameRef.current.removeAttribute('readOnly');
@@ -110,14 +125,55 @@ const Account = () => {
         }
     }
 
+    const saveScore = async () => {
+        try {
+            setIsLoading(true);
+            await axios.post(`${process.env.REACT_APP_BASE_API_URL}/api/account/confirm-result/${localUser.id}`,
+            {
+                firstPlayerId: user.matchResultModels[0].firstPlayerId,
+                firstPlayerDto: {
+                  firstName: user.matchResultModels[0].firstPlayerDto.firstName,
+                  middleName: user.matchResultModels[0].firstPlayerDto.middleName,
+                  lastName: user.matchResultModels[0].firstPlayerDto.lastName,
+                  currentRating: user.matchResultModels[0].firstPlayerDto.currentRating
+                },
+                secondPlayerId: user.matchResultModels[0].secondPlayerId,
+                secondPlayerDto: {
+                  firstName: user.matchResultModels[0].secondPlayerDto.firstName,
+                  middleName: user.matchResultModels[0].secondPlayerDto.middleName,
+                  lastName: user.matchResultModels[0].secondPlayerDto.lastName,
+                  currentRating: user.matchResultModels[0].secondPlayerDto.currentRating
+                },
+                score: {
+                  firstPlayerScored: firstPlayerScore,
+                  secondPlayerScored: secondPlayerScore,
+                  isConfirmed: true
+                }
+              },
+              {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }
+            );
+            setIsConfirmedScore(true);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
+
     return(
         <div className="account">
+            {isLoading && <div className="loader-wrapper">
+                        <Loader />
+                        </div>}
             <div className="account__container">
                 <h2 className="account-title">Личный Кабинет</h2>
                 <div className="account-info">
-                {isLoading && <div className="loader-wrapper">
-                        <Loader />
-                        </div>}
                     <h3>Мои данные</h3>
                     <div className="account-info-wrapper">
                         <p>ФИО: </p>
@@ -158,8 +214,8 @@ const Account = () => {
                         </select>
                     </div>
                     {!isChangeActive ? 
-                        <Button onClick={changeButton}>Изменить</Button> : 
-                        <div className="save-buttons">
+                        <Button style={{marginTop: "10px"}} onClick={changeButton}>Изменить</Button> : 
+                        <div className="save-buttons" style={{marginTop: "10px"}}>
                             <Button variant="success" onClick={saveChanges}>Сохранить</Button>
                             <Button variant="danger" className="cancel-btn" onClick={cancelSave}>Отменить</Button>
                         </div>
@@ -169,6 +225,50 @@ const Account = () => {
                     <h3>Мои рейтинг</h3>
                     <p className="account-info-rating">{user.currentRating}</p>
                 </div>
+                {!isConfirmedScore && user.matchResultModels && user.matchResultModels.length ?
+                    <div className="account-score-confirm">
+                        <h3>Подтверждение счёта</h3>
+                        <div className="account-players">
+                            <div className="account-player">
+                                <p>{
+                                    `${user.matchResultModels[0].firstPlayerDto.middleName} ${user.matchResultModels[0].firstPlayerDto.firstName} ${user.matchResultModels[0].firstPlayerDto.lastName}: `
+                                }</p>
+                                <input 
+                                    className="account-player-score" 
+                                    type="number" 
+                                    placeholder="0" 
+                                    max={11} 
+                                    min={0}
+                                    value={firstPlayerScore}
+                                    onChange={(e) => setFirstPlayerScore(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="account-players">
+                            <div className="account-player">
+                                <p>{
+                                    `${user.matchResultModels[0].secondPlayerDto.middleName} ${user.matchResultModels[0].secondPlayerDto.firstName} ${user.matchResultModels[0].secondPlayerDto.lastName}: `
+                                }</p>
+                                <input 
+                                    className="account-player-score" 
+                                    type="number" 
+                                    placeholder="0" 
+                                    max={11} 
+                                    min={0}
+                                    value={secondPlayerScore}
+                                    onChange={(e) => setSecondPlayerScore(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="confirm-btn">
+                            <Button 
+                                variant="success"
+                                disabled={!isScoreValid}
+                                onClick={() => saveScore()}
+                            >Подтвердить</Button>
+                        </div>
+                    </div> : ''
+                }
             </div>
         </div>
     );

@@ -100,18 +100,84 @@ select {
     z-index: 100;
     border-radius: 16px;
 }
+.account-score-confirm {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 16px;
+}
+.account-score-confirm h3 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+}
+.account-player {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.account-player p {
+    font-size: 1.6rem;
+}
+.account-player-score {
+    all: unset;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    border-bottom: 1px solid #082854;
+    padding: 2px;
+    background-color: #082854;
+}
+.account-player-score::placeholder {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+}
+.confirm-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 1200px) {
     .account__container {
         width: 50%;
     }
+    .account-score-confirm h3 {
+        font-size: 1.6rem;
+    }
+    .account-player p {
+        font-size: 1.4rem;
+    }
 }
-@media screen and (max-width: 90px) {
+@media screen and (max-width: 900px) {
     .account__container {
-        width: 60%;
+        width: 50%;
+    }
+    .account-player {
+        width: 95%;
+    }
+    .account-score-confirm h3 {
+        font-size: 1.4rem;
+    }
+    .account-player p {
+        font-size: 1.2rem;
     }
 }
 @media screen and (max-width: 600px) {
     .account__container {
         width: 96%;
+    }
+    .account-score-confirm h3 {
+        font-size: 1.4rem;
+    }
+    .account-player {
+        width: 95%;
+    }
+    .account-player p {
+        font-size: 1.2rem;
     }
 }
