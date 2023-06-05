@@ -1,6 +1,7 @@
 .account {
     /* background-color: rgba(204, 204, 204, 0.798); */
     min-height: 90vh;
+    padding-bottom: 50px;
 }
 
 .account-title {
@@ -108,7 +109,7 @@ select {
 }
 .account-score-confirm h3 {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 800;
 }
 .account-player {
@@ -119,12 +120,13 @@ select {
     align-items: center;
 }
 .account-player p {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
 }
 .account-player-score {
     all: unset;
     font-size: 1.4rem;
     font-weight: 700;
+    margin: 5px 0;
     color: white;
     text-align: center;
     border-bottom: 1px solid #082854;
