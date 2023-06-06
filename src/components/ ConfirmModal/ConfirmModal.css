@@ -1,0 +1,80 @@
+.confirm-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.673);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.confirm-modal-container {
+    width: 70%;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #082854;
+    z-index: 2;
+}
+.confirm-modal-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.player-change-score {
+    display: flex;
+    align-items: center;
+}
+
+.player-score-changes {
+    display: flex;
+    justify-content: center;
+}
+
+.player-change-score-input {
+    all: unset;
+    width: 50px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 10px;
+    color: #082854;
+    text-align: center;
+    border-bottom: 1px solid #082854;
+    padding: 2px;
+    background-color: white;
+}
+.player-change-score-input::placeholder {
+    color: #082854;
+    font-weight: 700;
+    text-align: center;
+}
+.confirm-save {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.confirm-save-btn {
+    margin: 0px 10px;
+}
+
+@media screen and (max-width: 1000px) {
+    .player-score-changes p {
+        font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .player-score-changes p {
+        font-size: 1rem;
+    }
+    .confirm-modal-container {
+        width: 90%;
+    }
+}

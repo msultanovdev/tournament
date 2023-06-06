@@ -8,15 +8,12 @@ import Participants from "./pages/Participants/Participants";
 import Competitions from "./pages/Сompetitions/Сompetitions";
 import Players from "./pages/Players/Players";
 import Schedule from "./pages/Schedule/Schedule";
+import Results from "./pages/Results/Results";
 
 export const guestRoutes = [
     {
         path: '/',
         element: Home
-    },
-    {
-        path: 'competitions',
-        element: Competitions
     },
     {
         path: 'login',
@@ -52,6 +49,10 @@ export const authRoutes = [
     {
         path: 'choice/schedule',
         element: Schedule
+    },
+    {
+        path: 'choice/results',
+        element: Results
     }
 ];
 
@@ -91,5 +92,9 @@ export const refereeRoutes = [
     {
         path: 'choice/schedule',
         element: Schedule
+    },
+    {
+        path: 'choice/results',
+        element: Results
     }
 ];

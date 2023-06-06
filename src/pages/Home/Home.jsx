@@ -12,7 +12,7 @@ const Home = () => {
         <div className="home__links">
           {!store.isAuth ? <><Link to="login">Вход</Link><Link to="form">Регистрация</Link></> : <Link to="account">Личный Кабинет</Link>}
           {store.isAuth}
-          <Link to="competitions">Соревнования</Link>
+          {store.isAuth && <Link to="competitions">Соревнования</Link>}
         </div>
       </div>
     </>

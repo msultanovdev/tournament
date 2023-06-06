@@ -1,0 +1,84 @@
+.results-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin: 10px 0px 20px 0px;
+}
+.result {
+    margin: 0 auto;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding: 15px;
+    background-color: #082854;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.512) 0px 7px 29px 0px;
+}
+.result-first-player-confirmation {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.result-first-player-confirmation-wrapper {
+    margin: 10px auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-first-player, .result-second-player {
+    width: 49%;
+}
+.result-first-player p, .result-second-player p {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.invalid-score span {
+    color: red;
+}
+.confirm-result-btn {
+    margin: 15px 10px 0;
+}
+.invalid-score-message {
+    text-align: center;
+    color: red;
+    font-size: 1rem;
+}
+.valid-score span {
+    color: rgb(4, 169, 4);
+}
+
+@media screen and (max-width: 1000px) {
+    .result-first-player-confirmation p {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .result {
+        width: 90%;
+    }
+    .result-first-player-confirmation p {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .result-first-player-confirmation p {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (max-width: 650px) {
+    .result {
+        width: 95%;
+    }
+    .result-first-player-confirmation p {
+        font-size: 1rem;
+    }
+}

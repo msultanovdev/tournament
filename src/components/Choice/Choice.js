@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Сhoice.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../UI/Loader';
+import { Context } from '../..';
 
 
 const Choice = () => {
   const id = localStorage.getItem('selectedCompetitionId');
+  const {store} = useContext(Context);
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isDescriptionFull, setIsDescriptionFull] = useState(false);
@@ -59,7 +61,8 @@ const Choice = () => {
       </div>
       <div className="choice__links">
           <Link to="schedule">Расписание</Link>
-          <Link to="players">Рейтинг участников</Link>
+          <Link to="players">Рейтинг</Link>
+          {(store.role === "Referee" || store.role === "Admin") && <Link to="results">Результаты</Link>}
       </div>
     </div>
   );
