@@ -38,7 +38,6 @@ select {
     background-color: #082854;
     color: white;
     padding: 4px;
-    width: 250px;
     border: none;
     border-radius: 6px;
     font-size: 20px;
@@ -52,7 +51,8 @@ select:disabled {
 }
 select option {
     padding: 30px;
-    background-color: white;
+    color: white;
+    background-color: #082854;
 }
 
 
