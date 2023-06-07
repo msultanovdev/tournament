@@ -1,9 +1,10 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './Participants.css';
 import { Context } from '../..';
 import axios from 'axios';
 import Loader from '../../components/UI/Loader';
 import { Button } from 'react-bootstrap';
+import { PersonLock } from 'react-bootstrap-icons';
 
 const Participants = () => {
     const {store} = useContext(Context);
@@ -97,8 +98,8 @@ const Participants = () => {
                             <th>№</th>
                             <th className='parts-table-name'>ФИО</th>
                             <th>Рейтинг</th>
-                            <th>Участвовал</th>
-                            <th>Заблокировать</th>
+                            <th>{window.innerWidth <= 1000 ? 'Уч.' : 'Участвовал'}</th>
+                            <th><PersonLock /></th>
                         </tr>
                     </thead>
                     <tbody>

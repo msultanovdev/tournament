@@ -8,8 +8,60 @@ body {
     position: relative;
 }
 
+table {
+    width: 100%;
+    border-collapse: separate;
+    margin: 25px 0;
+    border: none;
+    border-radius: 16px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+table thead {
+    background-color: #082854;
+    color: #ffffff;
+    text-align: center;
+}
+table th, table td {
+    padding: 12px 15px;
+    border: none;
+}
+
+table tbody tr {
+    border: none;
+} 
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+    border: none;
+}
+
+select {
+    background-color: #082854;
+    color: white;
+    padding: 4px;
+    width: 250px;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    outline: none;
+    transition: all .3s;
+}
+select:disabled {
+    background-color: gray;
+
+}
+select option {
+    padding: 30px;
+    background-color: white;
+}
+
+
 @media screen and (max-width: 1000px) {
     html {
         font-size: 12px;
+    }
+    table th, table td {
+        padding: 3px 5px;
+        border: none;
     }
 }

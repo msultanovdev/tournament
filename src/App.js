@@ -1,3 +1,4 @@
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from "./components/navbar/NavBar";
 import {Routes, Route} from "react-router-dom";

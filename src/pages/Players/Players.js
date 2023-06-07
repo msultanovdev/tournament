@@ -60,7 +60,7 @@ const Players = () => {
                 </select>
             </div>
             <div className='players-table-wrapper'>
-                {players.length ? 
+                {players && players.length ? 
                 <table className='players-table'>
                 <thead>
                     <tr>
