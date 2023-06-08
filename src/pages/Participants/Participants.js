@@ -4,7 +4,7 @@ import { Context } from '../..';
 import axios from 'axios';
 import Loader from '../../components/UI/Loader';
 import { Button } from 'react-bootstrap';
-import { PersonLock } from 'react-bootstrap-icons';
+import { PersonLock, Check2Circle } from 'react-bootstrap-icons';
 
 const Participants = () => {
     const {store} = useContext(Context);
@@ -98,7 +98,7 @@ const Participants = () => {
                             <th>№</th>
                             <th className='parts-table-name'>ФИО</th>
                             <th>Рейтинг</th>
-                            <th>{window.innerWidth <= 1000 ? 'Уч.' : 'Участвовал'}</th>
+                            <th><Check2Circle /></th>
                             <th><PersonLock /></th>
                         </tr>
                     </thead>
