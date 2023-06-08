@@ -26,7 +26,6 @@
     background-color: white;
     border-radius: 16px;
     position: relative;
-    overflow-x: scroll;
 }
 .account-age-wrapper {
     display: flex;
