@@ -48,7 +48,7 @@ const Schedule = () => {
                      />
                 }) : ''
             }
-                {(!data.length && store.role === 'Admin') && 
+                {(store.role === 'Admin') && 
                 <div className="generate-btn-wrapper">
                     <Button
                         onClick={() => generateSchedule()}

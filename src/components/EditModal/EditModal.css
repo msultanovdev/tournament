@@ -1,0 +1,70 @@
+.edit-modal {
+    padding: 15px;
+    color: white;
+    z-index: 106;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: min-content;
+    background-color: #082854;
+    border-radius: 16px;
+}
+.edit-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    background-color: rgba(0, 0, 0, 0.732);
+}
+.edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.form-creation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 1.2rem;
+}
+.input::placeholder {
+    font-size: 1rem;
+    font-weight: 400;
+    color: black;
+}
+.inputs-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.inputs-wrapper input {
+    width: 49%;
+}
+
+@media screen and (max-width: 1000px) {
+    .edit-modal {
+        width: 98%;
+        height: min-content;
+    }
+}

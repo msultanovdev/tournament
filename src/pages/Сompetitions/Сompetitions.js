@@ -7,11 +7,14 @@ import { Button } from 'react-bootstrap';
 import Loader from '../../components/UI/Loader';
 import CreateModal from '../../components/createModal/CreateModal';
 import { observer } from 'mobx-react-lite';
+import EditModal from '../../components/EditModal/EditModal';
 
 const Competitions = () => {
     const {store} = useContext(Context);
     const [isLoading, setIsLoading] = useState(false);
     const [isCreateModal, setIsCreateModal] = useState(false);
+    const [isEditModal, setIsEditModal] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
 
     const token = localStorage.getItem('token');
 
@@ -48,7 +51,7 @@ const Competitions = () => {
                     const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
                     return (<div key={competition.id} style={{display: 'flex', flexDirection: 'column', width: '100%', textAlign: 'center'}}>
                         <p style={{fontSize: '1.2rem'}}>Вы зарегистрированы:</p>
-                        <CompetitionItem id={competition.id} date={parsedData} title={competition.title} />
+                        <CompetitionItem setSelectedId={setSelectedId} setModal={setIsEditModal} id={competition.id} date={parsedData} title={competition.title} />
                         <hr />
                     </div>)
                 })}
@@ -59,11 +62,11 @@ const Competitions = () => {
                         }
                         const data = new Date(competition.startDateTime);
                         const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
-                        return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+                        return <CompetitionItem setSelectedId={setSelectedId} setModal={setIsEditModal} key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
                 }) : (store.competitions.length) ? store.competitions.map(competition => {
                     const data = new Date(competition.startDateTime);
                     const parsedData = new Intl.DateTimeFormat('ru', {weekday: 'short', month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(data);
-                    return <CompetitionItem key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
+                    return <CompetitionItem setSelectedId={setSelectedId} setModal={setIsEditModal} key={competition.id} id={competition.id} date={parsedData} title={competition.title} />
             }) : "Увы, соревнований нет!"}
             {isLoading && <div className='loader-wrapper'>
                 <Loader /></div>}
@@ -76,6 +79,7 @@ const Competitions = () => {
                 >Добавить Соревнование</Button>
             }
             {isCreateModal && <CreateModal setModal={setIsCreateModal} />}
+            {isEditModal && <EditModal setModal={setIsEditModal} id={selectedId} />}
 
         </div>
     );

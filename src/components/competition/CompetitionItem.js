@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
-const CompetitionItem = ({id, date, title}) => {
+const CompetitionItem = ({id, date, title, setModal, setSelectedId}) => {
     const {store} = useContext(Context);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
@@ -54,6 +54,8 @@ const CompetitionItem = ({id, date, title}) => {
 
     const changeCompetition = (e) => {
         e.stopPropagation();
+        setModal(true);
+        setSelectedId(id);
     }
 
     const leaveCompetition = async (e, id) => {
