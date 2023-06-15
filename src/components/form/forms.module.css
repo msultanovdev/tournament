@@ -5,8 +5,10 @@
     align-items: center;
     margin: 0 auto;
     max-width: 600px;
-    margin-top: 40px;
     padding-bottom: 20px;
+}
+.prr {
+    margin: 15px 0;
 }
 p {
     margin-bottom: 20px;

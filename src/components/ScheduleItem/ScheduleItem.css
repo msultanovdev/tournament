@@ -61,14 +61,11 @@ p {
     .schedule-item-table-players {
         width: 85%;
     }
-    .schedule-item-table {
-        width: 14%;
-    }
 }
 
 @media screen and (max-width: 1000px) {
     .schedule-item {
-        width: 90%;
+        width: 95%;
     }
     p {
         font-size: .8rem;
@@ -85,11 +82,14 @@ p {
     .schedule-item {
         width: 98%;
     }
+    .schedule-item-container {
+        margin: 20px 0px;
+    }
     p {
-        font-size: .7rem;
+        font-size: .6rem;
     }
     .schedule-item-table-players {
-        width: 83%;
+        width: 85%;
     }
     .schedule-item-table {
         width: 15%;
